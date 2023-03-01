@@ -1,0 +1,186 @@
+[gd_scene load_steps=18 format=3 uid="uid://d2p6ymxr5jb4r"]
+
+[ext_resource type="Texture2D" uid="uid://d4lyamwet4wwo" path="res://assets/border.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dtrqwdwyjh5q5" path="res://assets/ball.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://qk283cttnqxy" path="res://assets/basket.png" id="3"]
+[ext_resource type="Script" path="res://scripts/Basket.gd" id="3_inmj6"]
+[ext_resource type="Texture2D" uid="uid://bfymc71dgnkqb" path="res://assets/ring.png" id="4_jhk4r"]
+[ext_resource type="Script" path="res://scripts/Ball.gd" id="5_11y6o"]
+
+[sub_resource type="VisualShaderNodeTexture" id="13"]
+output_port_for_preview = 0
+source = 1
+
+[sub_resource type="VisualShaderNodeColorOp" id="10"]
+operator = 7
+
+[sub_resource type="VisualShaderNodeTexture" id="12"]
+source = 2
+
+[sub_resource type="VisualShaderNodeInput" id="15"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShader" id="8"]
+code = "shader_type canvas_item;
+uniform sampler2D screen_tex_frg_10 : hint_screen_texture;
+
+
+
+void fragment() {
+// Input:8
+	vec2 n_out8p0 = SCREEN_UV;
+
+
+	vec4 n_out10p0;
+// Texture2D:10
+	n_out10p0 = texture(screen_tex_frg_10, n_out8p0);
+
+
+	vec4 n_out5p0;
+// Texture2D:5
+	n_out5p0 = texture(TEXTURE, UV);
+
+
+	vec3 n_out2p0;
+// ColorOp:2
+	{
+		float base = vec3(n_out10p0.xyz).x;
+		float blend = vec3(n_out5p0.xyz).x;
+		if (base < 0.5) {
+			n_out2p0.x = (base * (blend + 0.5));
+		} else {
+			n_out2p0.x = (1.0 - (1.0 - base) * (1.0 - (blend - 0.5)));
+		}
+	}
+	{
+		float base = vec3(n_out10p0.xyz).y;
+		float blend = vec3(n_out5p0.xyz).y;
+		if (base < 0.5) {
+			n_out2p0.y = (base * (blend + 0.5));
+		} else {
+			n_out2p0.y = (1.0 - (1.0 - base) * (1.0 - (blend - 0.5)));
+		}
+	}
+	{
+		float base = vec3(n_out10p0.xyz).z;
+		float blend = vec3(n_out5p0.xyz).z;
+		if (base < 0.5) {
+			n_out2p0.z = (base * (blend + 0.5));
+		} else {
+			n_out2p0.z = (1.0 - (1.0 - base) * (1.0 - (blend - 0.5)));
+		}
+	}
+
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+
+}
+"
+graph_offset = Vector2(-331.731, -85.5594)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(2500, 120)
+nodes/fragment/2/node = SubResource("10")
+nodes/fragment/2/position = Vector2(1940, 80)
+nodes/fragment/5/node = SubResource("12")
+nodes/fragment/5/position = Vector2(1120, 500)
+nodes/fragment/8/node = SubResource("15")
+nodes/fragment/8/position = Vector2(400, 240)
+nodes/fragment/10/node = SubResource("13")
+nodes/fragment/10/position = Vector2(1160, 0)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 10, 0, 2, 0, 8, 0, 10, 0, 5, 0, 2, 1)
+
+[sub_resource type="ShaderMaterial" id="9"]
+shader = SubResource("8")
+
+[sub_resource type="RectangleShape2D" id="16"]
+size = Vector2(24, 23)
+
+[sub_resource type="RectangleShape2D" id="17"]
+size = Vector2(23, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xx6tn"]
+size = Vector2(1172, 398)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tunyb"]
+size = Vector2(1160, 1147)
+
+[sub_resource type="CircleShape2D" id="18"]
+radius = 19.8902
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+anchor_mode = 0
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1170.0
+offset_bottom = 2532.0
+color = Color(0.988235, 0.847059, 0.705882, 1)
+
+[node name="Border" type="Sprite2D" parent="."]
+material = SubResource("9")
+position = Vector2(0, 134)
+scale = Vector2(0.999146, 1.00293)
+texture = ExtResource("1")
+centered = false
+
+[node name="Basket" type="Sprite2D" parent="."]
+position = Vector2(573, 662.8)
+texture = ExtResource("3")
+script = ExtResource("3_inmj6")
+
+[node name="RingFront" type="Sprite2D" parent="Basket"]
+visible = false
+z_index = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("4_jhk4r")
+
+[node name="Ring" type="StaticBody2D" parent="Basket"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Basket/Ring"]
+position = Vector2(-191, 130.7)
+shape = SubResource("16")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Basket/Ring"]
+position = Vector2(193, 131.2)
+shape = SubResource("17")
+disabled = true
+
+[node name="EnableTrigger" type="Area2D" parent="Basket"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Basket/EnableTrigger"]
+position = Vector2(13, -460.8)
+shape = SubResource("RectangleShape2D_xx6tn")
+
+[node name="DisableTrigger" type="Area2D" parent="Basket"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Basket/DisableTrigger"]
+position = Vector2(13, 1297.7)
+shape = SubResource("RectangleShape2D_tunyb")
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2(566, 2105)
+gravity_scale = 10.0
+continuous_cd = 2
+sleeping = true
+freeze = true
+script = ExtResource("5_11y6o")
+fly_time = 1.7
+end_size = 0.6
+size_end_time = 1.0
+strength = 6.5
+
+[node name="Ball" type="Sprite2D" parent="Ball"]
+texture = ExtResource("2")
+
+[node name="Collider" type="CollisionShape2D" parent="Ball"]
+scale = Vector2(11.212, 11.212)
+shape = SubResource("18")
+
+[connection signal="body_entered" from="Basket/EnableTrigger" to="Basket" method="_on_enable_trigger_body_entered"]
+[connection signal="body_entered" from="Basket/DisableTrigger" to="Basket" method="_on_disable_trigger_body_entered"]
