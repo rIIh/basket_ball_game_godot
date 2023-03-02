@@ -15,7 +15,6 @@ var initial_sprite_size = $ball_sprite.scale
 var initial_collider_size = $collider.scale
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if visible and not freeze:
 		flying_time += delta;

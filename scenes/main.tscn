@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=11 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
@@ -6,8 +6,41 @@
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
 
+[sub_resource type="GDScript" id="GDScript_c8f6o"]
+script/source = "extends Area2D
+
+@export var distance: float = 300;
+
+@onready
+var prev_size = get_viewport_rect().size
+
+
+func _process(delta):
+	var viewport = get_viewport_rect()
+	var size = get_viewport_rect().size;
+	var offset = Vector2((1170 - viewport.size.x) / 2, (2532 - viewport.size.y) / 2); 
+	if prev_size != size:
+		$left.position.x = -distance + offset.x;
+		$right.position.x = size.x + distance  + offset.x;
+		$bottom.position.y = size.y + distance + offset.y;
+		
+		prev_size = size;
+"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_51bqd"]
+normal = Vector2(-1, 2.08165e-12)
+distance = 0.01
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nqnjf"]
+normal = Vector2(1, 2.08165e-12)
+distance = 0.01
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xbv1c"]
+normal = Vector2(2.08165e-12, -1)
+distance = 0.01
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
-size = Vector2(1170, 492)
+size = Vector2(1170, 572)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
@@ -26,14 +59,25 @@ end_size = 0.75
 
 [node name="out_area" type="Area2D" parent="."]
 input_pickable = false
+script = SubResource("GDScript_c8f6o")
+distance = 600.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="out_area"]
-polygon = PackedVector2Array(-672, -440, -614, 3165, 1866, 3228, 1823, -852, 2510, -806, 2444, 4251, -1207, 4118, -1260, -547)
+[node name="right" type="CollisionShape2D" parent="out_area"]
+position = Vector2(1600, 2.08165e-12)
+shape = SubResource("WorldBoundaryShape2D_51bqd")
+
+[node name="left" type="CollisionShape2D" parent="out_area"]
+position = Vector2(-600, 2.08165e-12)
+shape = SubResource("WorldBoundaryShape2D_nqnjf")
+
+[node name="bottom" type="CollisionShape2D" parent="out_area"]
+position = Vector2(2.08165e-12, 3000)
+shape = SubResource("WorldBoundaryShape2D_xbv1c")
 
 [node name="basket_enable_area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area"]
-position = Vector2(585, 246)
+position = Vector2(585, 286)
 shape = SubResource("RectangleShape2D_0k6k2")
 
 [node name="Camera2D" type="Camera2D" parent="."]

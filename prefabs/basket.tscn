@@ -4,11 +4,9 @@
 [ext_resource type="Script" path="res://scripts/basket.gd" id="2_o4511"]
 [ext_resource type="Texture2D" uid="uid://bfymc71dgnkqb" path="res://assets/ring.png" id="3_4glpe"]
 
-[sub_resource type="RectangleShape2D" id="16"]
-size = Vector2(24, 23)
+[sub_resource type="CircleShape2D" id="CircleShape2D_prddx"]
 
-[sub_resource type="RectangleShape2D" id="17"]
-size = Vector2(23, 23)
+[sub_resource type="CircleShape2D" id="CircleShape2D_guu8o"]
 
 [node name="basket" type="Sprite2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -28,10 +26,10 @@ position = Vector2(424, 310)
 
 [node name="left_collider" type="CollisionShape2D" parent="ring"]
 position = Vector2(-191, 130.7)
-shape = SubResource("16")
+shape = SubResource("CircleShape2D_prddx")
 disabled = true
 
 [node name="right_collider" type="CollisionShape2D" parent="ring"]
 position = Vector2(193, 131.2)
-shape = SubResource("17")
+shape = SubResource("CircleShape2D_guu8o")
 disabled = true

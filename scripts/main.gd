@@ -50,6 +50,7 @@ func _input(event):
 
 
 func _on_out_area_body_entered(body):
+	print('respawning on world border')
 	_respawn(body);
 
 func _respawn(ball: Node):

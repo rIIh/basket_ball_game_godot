@@ -6,13 +6,9 @@ script/source = "extends Area2D
 
 func _on_mouse_entered():
 	$ColorRect.color = Color.DARK_GREEN;
-	pass # Replace with function body.
-
 
 func _on_mouse_exited():
 	$ColorRect.color = Color.DARK_RED;
-	
-	pass # Replace with function body.
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7msf0"]

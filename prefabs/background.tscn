@@ -1,6 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://uyst81mwfgux"]
+[gd_scene load_steps=9 format=3 uid="uid://uyst81mwfgux"]
 
 [ext_resource type="Texture2D" uid="uid://d4lyamwet4wwo" path="res://assets/border.png" id="1_ixbso"]
+
+[sub_resource type="GDScript" id="GDScript_w8i3a"]
+script/source = "extends ColorRect
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var viewport = get_viewport_rect()
+	var size = viewport.size
+	
+	self.position = Vector2((1170 - viewport.size.x) / 2, (2532 - viewport.size.y) / 2); 
+	self.size = size;
+	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+"
 
 [sub_resource type="VisualShaderNodeTexture" id="13"]
 output_port_for_preview = 0
@@ -97,6 +111,7 @@ offset_right = 1170.0
 offset_bottom = 2532.0
 mouse_filter = 2
 color = Color(0.988235, 0.847059, 0.705882, 1)
+script = SubResource("GDScript_w8i3a")
 
 [node name="Border" type="Sprite2D" parent="."]
 material = SubResource("9")
