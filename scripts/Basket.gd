@@ -1,31 +1,18 @@
 extends Sprite2D
 
-var body_in_area: RigidBody2D
 
+func _toggle(value: bool):
+	$ring_front_sprite.visible = value;
+	for child in $ring.get_children():
+		if not child is CollisionShape2D:
+			continue;
+			
+		var collider = child as CollisionShape2D;
+		collider.call_deferred('set_disabled', !value)
 
-@onready
-var ring: Node = $Ring
-
-@onready
-var ring_front: Sprite2D = $RingFront
-
-func _ready():
-	pass # Replace with function body.
-
-
-func _process(delta):
-	pass
-
-
-func _on_enable_trigger_body_entered(body):
-	ring_front.visible = true;
-	for child in ring.get_children():
-		var collider = child as CollisionShape2D
-		collider.call_deferred('set_disabled', false)
-
-
-func _on_disable_trigger_body_entered(body):
-	ring_front.visible = false;
-	for child in ring.get_children():
-		var collider = child as CollisionShape2D
-		collider.call_deferred('set_disabled', true)
+func enable_colliders_and_front_sprite():
+	_toggle(true);
+		
+func disable_colliders_and_front_sprite():
+	_toggle(false);
+	

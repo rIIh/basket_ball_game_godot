@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxnuc28gi0cs0"]
+
+[sub_resource type="GDScript" id="GDScript_7dopv"]
+script/source = "extends Area2D
+
+
+func _on_mouse_entered():
+	$ColorRect.color = Color.DARK_GREEN;
+	pass # Replace with function body.
+
+
+func _on_mouse_exited():
+	$ColorRect.color = Color.DARK_RED;
+	
+	pass # Replace with function body.
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7msf0"]
+size = Vector2(1191, 972)
+
+[node name="mouse_test" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_7dopv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(585.5, 476)
+shape = SubResource("RectangleShape2D_7msf0")
+
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
+offset_right = 1168.0
+offset_bottom = 960.0
+mouse_filter = 2
+
+[connection signal="mouse_entered" from="Area2D" to="Area2D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="Area2D" method="_on_mouse_exited"]

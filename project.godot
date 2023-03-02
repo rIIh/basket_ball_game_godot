@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Basket Ball"
-run/main_scene="res://scenes/scene.01.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
@@ -19,7 +19,11 @@ config/icon="res://icon.png"
 
 window/size/viewport_width=1170
 window/size/viewport_height=2532
+window/size/window_width_override=585
+window/size/window_height_override=1266
+window/handheld/orientation=1
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [gui]
 

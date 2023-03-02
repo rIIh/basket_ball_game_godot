@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3rkoplkstp35"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
+[ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
+[ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
+[ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
+[ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
+size = Vector2(1170, 492)
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_kc5ag")
+metadata/_edit_vertical_guides_ = [585.0]
+
+[node name="Background" parent="." instance=ExtResource("1_stkov")]
+
+[node name="basket" parent="." instance=ExtResource("2_qt8m1")]
+position = Vector2(159, 501.5)
+
+[node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
+position = Vector2(583, 2035)
+strength = 6.0
+size_duration = 0.5
+end_size = 0.75
+
+[node name="out_area" type="Area2D" parent="."]
+input_pickable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="out_area"]
+polygon = PackedVector2Array(-672, -440, -614, 3165, 1866, 3228, 1823, -852, 2510, -806, 2444, 4251, -1207, 4118, -1260, -547)
+
+[node name="basket_enable_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area"]
+position = Vector2(585, 246)
+shape = SubResource("RectangleShape2D_0k6k2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(2.08165e-12, 2.08165e-12)
+anchor_mode = 0
+script = ExtResource("5_ppjvj")
+
+[connection signal="mouse_entered" from="ball_body" to="." method="_on_ball_body_mouse_entered"]
+[connection signal="mouse_exited" from="ball_body" to="." method="_on_ball_body_mouse_exited"]
+[connection signal="body_entered" from="out_area" to="." method="_on_out_area_body_entered"]
+[connection signal="body_entered" from="basket_enable_area" to="." method="_on_basket_enable_area_entered"]
