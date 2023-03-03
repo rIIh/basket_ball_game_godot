@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://uyst81mwfgux"]
+[gd_scene load_steps=9 format=3 uid="uid://cqab0kxve52ov"]
 
-[ext_resource type="Texture2D" uid="uid://d4lyamwet4wwo" path="res://assets/border.png" id="1_ixbso"]
+[ext_resource type="Texture2D" uid="uid://d3plxw8wrsbw6" path="res://assets/v2/border.png" id="1_qlv2c"]
 
 [sub_resource type="GDScript" id="GDScript_w8i3a"]
 script/source = "extends ColorRect
@@ -110,11 +110,10 @@ shader = SubResource("8")
 offset_right = 1170.0
 offset_bottom = 2532.0
 mouse_filter = 2
-color = Color(0.701961, 0.701961, 0.988235, 1)
+color = Color(0.0196078, 0.4, 0.996078, 1)
 script = SubResource("GDScript_w8i3a")
 
 [node name="Border" type="Sprite2D" parent="."]
 material = SubResource("9")
-position = Vector2(0, 141)
-texture = ExtResource("1_ixbso")
+texture = ExtResource("1_qlv2c")
 centered = false

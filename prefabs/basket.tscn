@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dn8ssl5rs6e0f"]
 
-[ext_resource type="Texture2D" uid="uid://qk283cttnqxy" path="res://assets/basket.png" id="1_6ckfa"]
+[ext_resource type="Texture2D" uid="uid://ce00u4bh4722d" path="res://assets/basket/basket.png" id="1_5su5o"]
 [ext_resource type="Script" path="res://scripts/basket.gd" id="2_o4511"]
-[ext_resource type="Texture2D" uid="uid://bfymc71dgnkqb" path="res://assets/ring.png" id="3_4glpe"]
+[ext_resource type="Texture2D" uid="uid://cbvv73yt8g07d" path="res://assets/basket/basket_front.png" id="3_ewuk5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prddx"]
 
@@ -10,7 +10,7 @@
 
 [node name="basket" type="Sprite2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("1_6ckfa")
+texture = ExtResource("1_5su5o")
 centered = false
 script = ExtResource("2_o4511")
 
@@ -18,18 +18,18 @@ script = ExtResource("2_o4511")
 visible = false
 z_index = 1
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("3_4glpe")
+texture = ExtResource("3_ewuk5")
 centered = false
 
 [node name="ring" type="StaticBody2D" parent="."]
 position = Vector2(424, 310)
 
 [node name="left_collider" type="CollisionShape2D" parent="ring"]
-position = Vector2(-191, 130.7)
+position = Vector2(-173, 128)
 shape = SubResource("CircleShape2D_prddx")
 disabled = true
 
 [node name="right_collider" type="CollisionShape2D" parent="ring"]
-position = Vector2(193, 131.2)
+position = Vector2(206, 127.2)
 shape = SubResource("CircleShape2D_guu8o")
 disabled = true

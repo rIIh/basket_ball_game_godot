@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=12 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
+[ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
@@ -48,9 +49,12 @@ max_swipe_distance = 500.0
 metadata/_edit_vertical_guides_ = [585.0]
 
 [node name="Background" parent="." instance=ExtResource("1_stkov")]
+visible = false
+
+[node name="Background2" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
-position = Vector2(159, 501.5)
+position = Vector2(145, 502)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
 position = Vector2(583, 2035)

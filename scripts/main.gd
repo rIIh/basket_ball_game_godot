@@ -20,6 +20,7 @@ var drag_end_position: Vector2;
 var drag_just_ended = false;
 
 func _ready():
+	Engine.time_scale = .25
 	ball_body_original = $ball_body
 	ball_body_original.disable()
 	_respawn(null)
