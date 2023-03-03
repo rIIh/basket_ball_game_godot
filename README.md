@@ -1,3 +1,11 @@
+# BASKETBALL
+
+![Cover](https://images2.imgbox.com/21/dc/u8fMZMxS_o.png)
+
+A game about throwing a ball in a basket, using the MIT licensed Godot game engine.
+
+This repository contains the game scripts and assets as of their open sourcing.
+
 ## Licensing
 
 ### Code
