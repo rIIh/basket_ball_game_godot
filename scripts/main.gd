@@ -32,11 +32,8 @@ func _input(event):
 			drag_end_position = event.position;
 			set_dragging(false)
 			
-	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
-		if !dragging and !drag_breaked and event.pressed and over_body:
-			drag_start_position = event.position;
-			set_dragging(true)
 			
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
 		if !drag_breaked and dragging and !event.pressed:
 			drag_end_position = event.position;
 			set_dragging(false)
@@ -50,7 +47,6 @@ func _input(event):
 
 
 func _on_out_area_body_entered(body):
-	print('respawning on world border')
 	_respawn(body);
 
 func _respawn(ball: Node):
@@ -68,14 +64,20 @@ func _respawn(ball: Node):
 func _on_basket_enable_area_entered(body):
 	$basket.enable_colliders_and_front_sprite();
 
+func _on_ball_body_input_event(viewport, event: InputEvent, shape_idx):
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
+		if !dragging and !drag_breaked and event.pressed and over_body:
+			drag_start_position = event.position;
+			set_dragging(true)
 
 func _on_ball_body_mouse_entered():
 	over_body = true;
 
-
 func _on_ball_body_mouse_exited():
-	over_body = false;	
+	over_body = false;
 
 func handle_drag_end():
 	var direction = (drag_end_position - drag_start_position).normalized()
 	ball_body.push(direction)
+
+

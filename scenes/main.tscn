@@ -44,6 +44,7 @@ size = Vector2(1170, 572)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
+max_swipe_distance = 500.0
 metadata/_edit_vertical_guides_ = [585.0]
 
 [node name="Background" parent="." instance=ExtResource("1_stkov")]
@@ -53,9 +54,10 @@ position = Vector2(159, 501.5)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
 position = Vector2(583, 2035)
-strength = 6.0
+angular_velocity = 2.3
+strength = 5.5
 size_duration = 0.5
-end_size = 0.75
+end_size = 0.7
 
 [node name="out_area" type="Area2D" parent="."]
 input_pickable = false
@@ -85,6 +87,7 @@ offset = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
+[connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
 [connection signal="mouse_entered" from="ball_body" to="." method="_on_ball_body_mouse_entered"]
 [connection signal="mouse_exited" from="ball_body" to="." method="_on_ball_body_mouse_exited"]
 [connection signal="body_entered" from="out_area" to="." method="_on_out_area_body_entered"]
