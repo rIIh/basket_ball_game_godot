@@ -1,4 +1,19 @@
+@tool
 extends Sprite2D
+
+
+@export var ring_is_over = false :
+	set(value):
+		print('changed')
+		_toggle(value);
+		ring_is_over = value;
+	
+func _set(property, value) -> bool:
+	if (property == "ring_is_over"):
+		ring_is_over = value
+		return true
+		
+	return false
 
 
 func _toggle(value: bool):
@@ -11,8 +26,8 @@ func _toggle(value: bool):
 		collider.call_deferred('set_disabled', !value)
 
 func enable_colliders_and_front_sprite():
-	_toggle(true);
+	ring_is_over = true;
 		
 func disable_colliders_and_front_sprite():
-	_toggle(false);
+	ring_is_over = false;
 	
