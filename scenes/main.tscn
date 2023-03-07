@@ -41,7 +41,7 @@ normal = Vector2(2.08165e-12, -1)
 distance = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
-size = Vector2(1170, 572)
+size = Vector2(1170, 426)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
@@ -54,12 +54,12 @@ visible = false
 [node name="Background2" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
-position = Vector2(145, 502)
+position = Vector2(159, 378)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
 position = Vector2(583, 2035)
 angular_velocity = 2.3
-strength = 5.5
+strength = 5.7
 size_duration = 0.5
 end_size = 0.7
 
@@ -83,7 +83,7 @@ shape = SubResource("WorldBoundaryShape2D_xbv1c")
 [node name="basket_enable_area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area"]
-position = Vector2(585, 286)
+position = Vector2(585, 213)
 shape = SubResource("RectangleShape2D_0k6k2")
 
 [node name="Camera2D" type="Camera2D" parent="."]

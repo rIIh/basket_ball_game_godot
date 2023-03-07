@@ -1,35 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://dn8ssl5rs6e0f"]
+[gd_scene load_steps=7 format=3 uid="uid://dn8ssl5rs6e0f"]
 
-[ext_resource type="Texture2D" uid="uid://ce00u4bh4722d" path="res://assets/basket/basket.png" id="1_5su5o"]
+[ext_resource type="Texture2D" uid="uid://cfbiydepvgak1" path="res://assets/v2/objects/basket.png" id="1_1nkfk"]
 [ext_resource type="Script" path="res://scripts/basket.gd" id="2_o4511"]
-[ext_resource type="Texture2D" uid="uid://cbvv73yt8g07d" path="res://assets/basket/basket_front.png" id="3_ewuk5"]
+[ext_resource type="Texture2D" uid="uid://cskklnvaujw4h" path="res://assets/v2/objects/basket-1.png" id="3_ele5b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prddx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_guu8o"]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_21ecb"]
+a = Vector2(182, -1)
+b = Vector2(-197, 0)
+
 [node name="basket" type="Sprite2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("1_5su5o")
+texture = ExtResource("1_1nkfk")
 centered = false
 script = ExtResource("2_o4511")
+metadata/_edit_vertical_guides_ = [426.0]
 
-[node name="ring_front_sprite" type="Sprite2D" parent="."]
-visible = false
+[node name="ring_sprite" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("3_ewuk5")
+texture = ExtResource("3_ele5b")
 centered = false
 
-[node name="ring" type="StaticBody2D" parent="."]
-position = Vector2(424, 310)
+[node name="ring" type="Node2D" parent="."]
+position = Vector2(426, 426)
 
-[node name="left_collider" type="CollisionShape2D" parent="ring"]
-position = Vector2(-173, 128)
+[node name="ring_sides" type="StaticBody2D" parent="ring"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="left_collider" type="CollisionShape2D" parent="ring/ring_sides"]
+position = Vector2(-192, 2.08165e-12)
 shape = SubResource("CircleShape2D_prddx")
 disabled = true
 
-[node name="right_collider" type="CollisionShape2D" parent="ring"]
-position = Vector2(206, 127.2)
+[node name="right_collider" type="CollisionShape2D" parent="ring/ring_sides"]
+position = Vector2(192, 2.08165e-12)
 shape = SubResource("CircleShape2D_guu8o")
 disabled = true
+
+[node name="counter_detector" type="Area2D" parent="ring"]
+position = Vector2(6, 13)
+
+[node name="line" type="CollisionShape2D" parent="ring/counter_detector"]
+shape = SubResource("SegmentShape2D_21ecb")
+disabled = true
+one_way_collision_margin = 0.0

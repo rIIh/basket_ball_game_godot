@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqab0kxve52ov"]
 
 [ext_resource type="Material" uid="uid://bly1eapabilo0" path="res://materials/blend_mode_material.tres" id="1_3eixt"]
-[ext_resource type="Texture2D" uid="uid://d3plxw8wrsbw6" path="res://assets/v2/border.png" id="1_qlv2c"]
+[ext_resource type="Texture2D" uid="uid://bg2bwk25igaw3" path="res://assets/v2/border_complete.png" id="2_2wtuf"]
 
 [sub_resource type="GDScript" id="GDScript_w8i3a"]
 script/source = "extends ColorRect
@@ -23,10 +23,11 @@ func _process(delta):
 offset_right = 1170.0
 offset_bottom = 2532.0
 mouse_filter = 2
-color = Color(0.0196078, 0.4, 0.996078, 1)
+color = Color(0.290196, 0.360784, 0.92549, 1)
 script = SubResource("GDScript_w8i3a")
 
 [node name="Border" type="Sprite2D" parent="."]
 material = ExtResource("1_3eixt")
-texture = ExtResource("1_qlv2c")
+position = Vector2(60, 60)
+texture = ExtResource("2_2wtuf")
 centered = false
