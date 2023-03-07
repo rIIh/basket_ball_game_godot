@@ -30,6 +30,10 @@ window/stretch/aspect="expand"
 
 common/drop_mouse_on_gui_input_disabled=true
 
+[layer_names]
+
+2d_physics/layer_4="Ball Counter Layer"
+
 [mono]
 
 project/assembly_name="Basket Ball"

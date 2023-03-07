@@ -2,7 +2,10 @@
 extends Sprite2D
 
 
-signal on_counted;
+## collisions are counted while ring in front of ball.
+signal on_ball_dropped(collisions: int);
+
+var collisions: int = 0;
 
 @export var ring_is_over = false :
 	set(value):
@@ -16,8 +19,10 @@ func _set(property, value) -> bool:
 		
 	return false
 
-
 func _toggle(value: bool):
+	if not value:
+		collisions = 0
+	
 	var sprite := $ring_sprite as Sprite2D
 	sprite.z_index = 2 if value else 0;
 	
@@ -27,7 +32,6 @@ func _toggle(value: bool):
 	_toggle_collision_shapes(sides, value)
 	_toggle_collision_shapes(counter, value)
 
-
 func enable_colliders_and_front_sprite():
 	ring_is_over = true;
 		
@@ -36,8 +40,17 @@ func disable_colliders_and_front_sprite():
 	
 func _toggle_collision_shapes(node: Node, value: bool):
 	for child in node.get_children():
-		if not child is CollisionShape2D:
+		if not child is CollisionShape2D and not child is CollisionPolygon2D:
 			continue;
 			
-		var collider = child as CollisionShape2D;
+		if child.get_meta("ignore", false):
+			continue;
+			
+		var collider = child;
 		collider.call_deferred('set_disabled', !value)
+
+func _on_counter_detector_body_entered(body):
+	on_ball_dropped.emit(collisions)
+
+func _on_ring_sides_body_entered(body):
+	collisions += 1;

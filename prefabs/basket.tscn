@@ -28,8 +28,14 @@ centered = false
 [node name="ring" type="Node2D" parent="."]
 position = Vector2(426, 426)
 
-[node name="ring_sides" type="StaticBody2D" parent="ring"]
+[node name="ring_sides" type="RigidBody2D" parent="ring"]
 position = Vector2(2.08165e-12, 2.08165e-12)
+gravity_scale = 2.66454e-15
+continuous_cd = 1
+max_contacts_reported = 1
+contact_monitor = true
+freeze = true
+freeze_mode = 1
 
 [node name="left_collider" type="CollisionShape2D" parent="ring/ring_sides"]
 position = Vector2(-192, 2.08165e-12)
@@ -43,8 +49,20 @@ disabled = true
 
 [node name="counter_detector" type="Area2D" parent="ring"]
 position = Vector2(6, 13)
+collision_layer = 8
+
+[node name="arc" type="CollisionPolygon2D" parent="ring/counter_detector"]
+position = Vector2(-2, 1)
+build_mode = 1
+polygon = PackedVector2Array(-193, 6, -130, 99, -6, 138, 124, 116, 190, 13, 119, 78, -5, 99, -128, 68)
+disabled = true
 
 [node name="line" type="CollisionShape2D" parent="ring/counter_detector"]
+position = Vector2(0, 176)
 shape = SubResource("SegmentShape2D_21ecb")
 disabled = true
 one_way_collision_margin = 0.0
+metadata/ignore = true
+
+[connection signal="body_entered" from="ring/ring_sides" to="." method="_on_ring_sides_body_entered"]
+[connection signal="body_entered" from="ring/counter_detector" to="." method="_on_counter_detector_body_entered"]
