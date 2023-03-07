@@ -6,6 +6,13 @@ extends Node2D
 var ball_body_original;
 var ball_body;
 
+var count := 0 :
+	set(value):
+		count = value;
+		$Label.text = str(value)
+		
+var dropped := false;
+
 var over_body = false;
 var dragging = false
 var drag_breaked = false;
@@ -60,6 +67,11 @@ func _respawn(ball: Node):
 	ball_body = new_ball
 	
 	$basket.disable_colliders_and_front_sprite();
+	
+	if not dropped:
+		count = 0
+		
+	dropped = false
 
 func _on_basket_enable_area_entered(body):
 	$basket.enable_colliders_and_front_sprite();
@@ -70,14 +82,16 @@ func _on_ball_body_input_event(viewport, event: InputEvent, shape_idx):
 			drag_start_position = event.position;
 			set_dragging(true)
 
+func handle_drag_end():
+	var direction = (drag_end_position - drag_start_position).normalized()
+	ball_body.push(direction)
+
 func _on_ball_body_mouse_entered():
 	over_body = true;
 
 func _on_ball_body_mouse_exited():
 	over_body = false;
 
-func handle_drag_end():
-	var direction = (drag_end_position - drag_start_position).normalized()
-	ball_body.push(direction)
-
-
+func _on_basket_on_ball_dropped(collisions):
+	dropped = true;
+	count += 2 if collisions == 0 else 1

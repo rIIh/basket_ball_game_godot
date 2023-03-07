@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=14 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
@@ -42,6 +42,17 @@ distance = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
 size = Vector2(1170, 426)
+
+[sub_resource type="SystemFont" id="SystemFont_rooty"]
+font_names = PackedStringArray("Patrick Hand")
+generate_mipmaps = true
+msdf_pixel_range = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_d773v"]
+line_spacing = 2.08165e-12
+font = SubResource("SystemFont_rooty")
+font_size = 225
+outline_size = 15
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
@@ -91,6 +102,16 @@ offset = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
+[node name="Label" type="Label" parent="."]
+offset_left = 447.0
+offset_top = 1162.0
+offset_right = 703.0
+offset_bottom = 1472.0
+text = "13"
+label_settings = SubResource("LabelSettings_d773v")
+horizontal_alignment = 1
+
+[connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
 [connection signal="mouse_entered" from="ball_body" to="." method="_on_ball_body_mouse_entered"]
 [connection signal="mouse_exited" from="ball_body" to="." method="_on_ball_body_mouse_exited"]
