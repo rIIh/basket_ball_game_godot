@@ -7,7 +7,7 @@ env:
 jobs:
   export-web-debug:
     name: Web Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     container:
       image: sdggames/godot-ci:4.0
     steps:
@@ -22,12 +22,9 @@ jobs:
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
-          ls /root/home/.local/share/godot/templates
-          mv /root/home/.local/share/godot/templates/4.0.stable ~/.local/share/godot/templates/4.0.stable
+          mv /root/.local/share/godot/export_templates/4.0.stable ~/.local/share/godot/templates/4.0.stable
       - name: Web Build
         run: |
-          ls ~/.local/share/godot/export_templates
-          ls /github/home/.local/share/godot/export_templates
           mkdir -v -p build/web-debug
           mkdir -v -p .godot/editor
           mkdir -v -p .godot/imported
