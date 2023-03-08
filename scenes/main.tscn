@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=19 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
 [ext_resource type="Script" path="res://scripts/ui/score_label.gd" id="7_vtvcm"]
+[ext_resource type="Texture2D" uid="uid://yvfjvm3l14ce" path="res://assets/v2/star.png" id="8_esgnp"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
 script/source = "extends Area2D
@@ -54,6 +55,20 @@ line_spacing = 2.08165e-12
 font = SubResource("SystemFont_rooty")
 font_size = 225
 outline_size = 15
+
+[sub_resource type="Curve" id="Curve_apfmy"]
+max_value = 200.0
+_data = [Vector2(0.247897, 0), 0.0, 2.08165e-12, 0, 0, Vector2(1, 112.791), 149.968, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_dggwa"]
+_data = [Vector2(0, 0), 0.0, 4.00725, 0, 1, Vector2(0.247897, 0.993384), 0.301428, 0.301428, 0, 0, Vector2(0.998785, 0), -1.32295, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_8cfff"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.81457, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
@@ -103,16 +118,20 @@ offset = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
-[node name="Label" type="Label" parent="."]
+[node name="Score" type="Node2D" parent="."]
+position = Vector2(585, 1412)
+script = ExtResource("7_vtvcm")
+
+[node name="Label" type="Label" parent="Score"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 457.0
-offset_top = 1251.0
-offset_right = 713.0
-offset_bottom = 1561.0
+offset_left = -128.0
+offset_top = -161.0
+offset_right = 128.0
+offset_bottom = 149.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(129, 161)
@@ -120,7 +139,26 @@ text = "13"
 label_settings = SubResource("LabelSettings_d773v")
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("7_vtvcm")
+
+[node name="particles" type="CPUParticles2D" parent="Score"]
+position = Vector2(-1, -2)
+amount = 5
+lifetime = 0.5
+explosiveness = 1.0
+local_coords = true
+texture = ExtResource("8_esgnp")
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.0
+damping_min = 200.0
+damping_max = 200.0
+damping_curve = SubResource("Curve_apfmy")
+angle_max = 720.0
+scale_amount_min = 0.9
+scale_amount_max = 1.1
+scale_amount_curve = SubResource("Curve_dggwa")
+color_ramp = SubResource("Gradient_8cfff")
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
