@@ -37,6 +37,7 @@ jobs:
         with:
           name: web
           path: build/web-debug
+          retention-days: 1
       - name: Install rsync 📚
         run: |
           apt-get update && apt-get install -y rsync
