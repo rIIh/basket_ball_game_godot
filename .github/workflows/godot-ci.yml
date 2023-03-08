@@ -5,14 +5,14 @@ env:
   GODOT_VERSION: 4.0
   EXPORT_NAME: basketball
   PROJECT_PATH: .
-  IMAGE: themultii/godot-ci:4.0-stable # barichello/godot-ci:latest
+  IMAGE: sdggames/godot-ci:4.0 # barichello/godot-ci:latest
   
 jobs:
   export-web-debug:
     name: Web Export
     runs-on: ubuntu-20.04
     container:
-      image: themultii/godot-ci:4.0-stable
+      image: sdggames/godot-ci:4.0
     env:
       BUILD_TARGET: "Web"
       BUILD_FILE_EXTENSION: index.html
