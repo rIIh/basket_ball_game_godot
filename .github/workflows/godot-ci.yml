@@ -14,9 +14,8 @@ jobs:
     container:
       image: themultii/godot-ci:4.0-stable
     env:
-      BUILD_FILE_EXTENSION: index.html
       BUILD_TARGET: "Web"
-      BUILD_FOLDER: "web-debug"
+      BUILD_FILE_EXTENSION: index.html
       EXPORT_MODE: "--export-debug"
     steps:
       - name: Install Git LFS
@@ -27,16 +26,16 @@ jobs:
           lfs: true
       - name: Web Build
         run: |
-          mkdir -v -p build/$BUILD_FOLDER
+          mkdir -v -p build/web-debug
           mkdir -v -p .godot/editor
           mkdir -v -p .godot/imported
-          echo godot -v --headless $EXPORT_MODE  "$BUILD_TARGET" build/$BUILD_FOLDER/index.html
-          godot -v --headless $EXPORT_MODE  "$BUILD_TARGET" build/$BUILD_FOLDER/index.html
+          echo godot -v --headless $EXPORT_MODE  "$BUILD_TARGET" build/web-debug/index.html
+          godot -v --headless $EXPORT_MODE  "$BUILD_TARGET" build/web-debug/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: web
-          path: build/$BUILD_FOLDER
+          path: build/web-debug
       - name: Install rsync 📚
         run: |
           apt-get update && apt-get install -y rsync
@@ -44,4 +43,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           branch: gh-pages
-          folder: build/$BUILD_FOLDER
+          folder: build/web-debug
