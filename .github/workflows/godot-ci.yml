@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
+      - name: Rename export presets
+        run: mv export_presets.public.cfg export_presets.cfg
       - name: Web Build
         run: |
           mkdir -v -p build/web-debug
