@@ -12,7 +12,7 @@ jobs:
     name: Windows Export
     runs-on: ubuntu-20.04
     container:
-      image: ${IMAGE}
+      image: themultii/godot-ci:4.0-stable
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
     name: Linux Export
     runs-on: ubuntu-20.04
     container:
-      image: ${IMAGE}
+      image: themultii/godot-ci:4.0-stable
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
     name: Web Export
     runs-on: ubuntu-20.04
     container:
-      image: ${IMAGE}
+      image: themultii/godot-ci:4.0-stable
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -96,7 +96,7 @@ jobs:
     name: Mac Export
     runs-on: ubuntu-20.04
     container:
-      image: ${IMAGE}
+      image: themultii/godot-ci:4.0-stable
     steps:
       - name: Checkout
         uses: actions/checkout@v2
