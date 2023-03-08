@@ -9,8 +9,8 @@ var ball_body;
 var count := 0 :
 	set(value):
 		count = value;
-		$Label.text = str(value)
 		
+
 var dropped := false;
 
 var over_body = false;
@@ -70,6 +70,9 @@ func _respawn(ball: Node):
 	
 	if not dropped:
 		count = 0
+		events.dispatch(
+			ScoreChanged.reset()
+		)
 		
 	dropped = false
 
@@ -95,3 +98,6 @@ func _on_ball_body_mouse_exited():
 func _on_basket_on_ball_dropped(collisions):
 	dropped = true;
 	count += 2 if collisions == 0 else 1
+	events.dispatch(
+		ScoreChanged.increment(count)
+	)

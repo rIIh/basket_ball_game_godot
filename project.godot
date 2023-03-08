@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
+[autoload]
+
+events="*res://scripts/events.gd"
+
 [display]
 
 window/size/viewport_width=1170

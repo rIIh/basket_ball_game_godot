@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=15 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
+[ext_resource type="Script" path="res://scripts/ui/score_label.gd" id="7_vtvcm"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
 script/source = "extends Area2D
@@ -103,13 +104,23 @@ anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 447.0
-offset_top = 1162.0
-offset_right = 703.0
-offset_bottom = 1472.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 457.0
+offset_top = 1251.0
+offset_right = 713.0
+offset_bottom = 1561.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(129, 161)
 text = "13"
 label_settings = SubResource("LabelSettings_d773v")
 horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_vtvcm")
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
