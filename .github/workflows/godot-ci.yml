@@ -30,7 +30,7 @@ jobs:
           mkdir -v -p .godot/imported
           echo godot -v --headless --export-debug "Web" build/web-debug/index.html
           godot -v --headless --export-debug "Web" build/web-debug/index.html
-          curl -o build/web-debug/coi-serviceworker.min.js https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js
+          wget -o build/web-debug/coi-serviceworker.min.js https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js
           ls build/web-debug/
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
