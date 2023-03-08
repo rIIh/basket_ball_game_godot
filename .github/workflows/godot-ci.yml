@@ -19,6 +19,10 @@ jobs:
           lfs: true
       - name: Rename export presets
         run: mv export_presets.public.cfg export_presets.cfg
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/4.0.stable ~/.local/share/godot/templates/4.0.stable
       - name: Web Build
         run: |
           ls ~/.local/share/godot/export_templates
