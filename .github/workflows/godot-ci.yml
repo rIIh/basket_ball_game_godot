@@ -22,6 +22,7 @@ jobs:
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
+          ls /root/.local/share/godot/templates
           mv /root/.local/share/godot/templates/4.0.stable ~/.local/share/godot/templates/4.0.stable
       - name: Web Build
         run: |
