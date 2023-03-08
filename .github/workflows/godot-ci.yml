@@ -21,6 +21,8 @@ jobs:
         run: mv export_presets.public.cfg export_presets.cfg
       - name: Web Build
         run: |
+          ls ~/.local/share/godot/export_templates
+          ls /github/home/.local/share/godot/export_templates
           mkdir -v -p build/web-debug
           mkdir -v -p .godot/editor
           mkdir -v -p .godot/imported
