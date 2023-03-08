@@ -6,11 +6,6 @@ extends Node2D
 var ball_body_original;
 var ball_body;
 
-var count := 0 :
-	set(value):
-		count = value;
-		
-
 var dropped := false;
 
 var over_body = false;
@@ -69,10 +64,7 @@ func _respawn(ball: Node):
 	$basket.disable_colliders_and_front_sprite();
 	
 	if not dropped:
-		count = 0
-		events.dispatch(
-			ScoreChanged.reset()
-		)
+		Score.reset()
 		
 	dropped = false
 
@@ -96,8 +88,5 @@ func _on_ball_body_mouse_exited():
 	over_body = false;
 
 func _on_basket_on_ball_dropped(collisions):
+	Score.increment(collisions > 0)
 	dropped = true;
-	count += 2 if collisions == 0 else 1
-	events.dispatch(
-		ScoreChanged.increment(count)
-	)

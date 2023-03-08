@@ -17,7 +17,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-events="*res://scripts/events.gd"
+Events="*res://scripts/events.gd"
+Score="*res://scripts/score.gd"
 
 [display]
 

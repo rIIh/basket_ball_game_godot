@@ -3,7 +3,7 @@ extends Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	events.on_event.connect(handle_event)
+	Events.on_event.connect(handle_event)
 
 
 func handle_event(event: EventBase):
