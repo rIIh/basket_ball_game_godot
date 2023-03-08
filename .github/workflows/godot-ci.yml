@@ -2,9 +2,6 @@ name: "godot-ci export"
 on: push
 
 env:
-  GODOT_VERSION: 4.0
-  EXPORT_NAME: basketball
-  PROJECT_PATH: .
   IMAGE: sdggames/godot-ci:4.0 # barichello/godot-ci:latest
   
 jobs:
@@ -13,10 +10,6 @@ jobs:
     runs-on: ubuntu-20.04
     container:
       image: sdggames/godot-ci:4.0
-    env:
-      BUILD_TARGET: "Web"
-      BUILD_FILE_EXTENSION: index.html
-      EXPORT_MODE: "--export-debug"
     steps:
       - name: Install Git LFS
         run: apt-get update && apt-get install git-lfs
@@ -31,8 +24,9 @@ jobs:
           mkdir -v -p build/web-debug
           mkdir -v -p .godot/editor
           mkdir -v -p .godot/imported
-          echo godot -v --headless $EXPORT_MODE  "$BUILD_TARGET" build/web-debug/index.html
-          godot -v --headless $EXPORT_MODE  "$BUILD_TARGET" build/web-debug/index.html
+          echo godot -v --headless --export-debug "Web" build/web-debug/index.html
+          godot -v --headless --export-debug "Web" build/web-debug/index.html
+          ls build/web-debug/
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
