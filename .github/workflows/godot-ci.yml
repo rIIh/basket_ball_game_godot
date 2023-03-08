@@ -22,8 +22,8 @@ jobs:
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
-          ls /root/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/4.0.stable ~/.local/share/godot/templates/4.0.stable
+          ls /root/home/.local/share/godot/templates
+          mv /root/home/.local/share/godot/templates/4.0.stable ~/.local/share/godot/templates/4.0.stable
       - name: Web Build
         run: |
           ls ~/.local/share/godot/export_templates
