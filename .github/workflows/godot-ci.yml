@@ -19,6 +19,8 @@ jobs:
       BUILD_FOLDER: "web-debug"
       EXPORT_MODE: "--export-debug"
     steps:
+      - name: Install Git LFS
+        run: apt-get update && apt-get install git-lfs
       - name: Checkout
         uses: actions/checkout@v2
         with:
