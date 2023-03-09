@@ -28,26 +28,15 @@ jobs:
           mkdir -v -p build/web-debug
           mkdir -v -p .godot/editor
           mkdir -v -p .godot/imported
-          echo godot -v --headless --export-debug "Web" build/web-debug/index.html
           godot -v --headless --export-debug "Web" build/web-debug/index.html
           wget -O build/web-debug/coi-serviceworker.min.js https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js
-          ls build/web-debug/
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: web
-          path: build/web-debug
-          retention-days: 1
-      - name: Install rsync 📚
-        run: |
-          apt-get update && apt-get install -y rsync
-      - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v4
-        with:
-          branch: gh-pages
-          folder: build/web-debug
-      - uses: jsmrcaga/action-netlify-deploy@v2.0.0
-        with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_TO_PROD: true
+      # - name: Deploy to GitHub Pages 🚀
+      #   uses: JamesIves/github-pages-deploy-action@releases/v4
+      #   with:
+      #     branch: gh-pages
+      #     folder: build/web-debug
+      # - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+      #   with:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      #     NETLIFY_DEPLOY_TO_PROD: true
