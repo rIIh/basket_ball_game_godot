@@ -1,0 +1,42 @@
+name: "godot-ci export"
+on: push
+
+env:
+  IMAGE: sdggames/godot-ci:4.0 # barichello/godot-ci:latest
+  
+jobs:
+  export-web-debug:
+    name: Web Export
+    runs-on: ubuntu-18.04
+    container:
+      image: sdggames/godot-ci:4.0
+    steps:
+      - name: Install Git LFS
+        run: apt-get update && apt-get install git-lfs
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Rename export presets
+        run: mv export_presets.public.cfg export_presets.cfg
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/4.0.stable ~/.local/share/godot/export_templates/4.0.stable
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web-debug
+          mkdir -v -p .godot/editor
+          mkdir -v -p .godot/imported
+          godot -v --headless --export-debug "Web" build/web-debug/index.html
+          wget -O build/web-debug/coi-serviceworker.min.js https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js
+      # - name: Deploy to GitHub Pages 🚀
+      #   uses: JamesIves/github-pages-deploy-action@releases/v4
+      #   with:
+      #     branch: gh-pages
+      #     folder: build/web-debug
+      # - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+      #   with:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      #     NETLIFY_DEPLOY_TO_PROD: true
