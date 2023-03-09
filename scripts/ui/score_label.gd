@@ -17,6 +17,7 @@ func _ready():
 	setup_emitters()
 	
 	Events.on_event.connect(handle_event)
+	$Label.text = str(Score.current_session.score)
 
 
 func handle_event(event: EventBase):

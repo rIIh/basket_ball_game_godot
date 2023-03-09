@@ -24,8 +24,9 @@ var drag_just_ended = false;
 func _ready():
 	ball_body_original = $ball_body
 	ball_body_original.disable()
-	_respawn(null)
-
+	
+	_respawn(null, true)
+	
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -51,7 +52,7 @@ func _input(event):
 func _on_out_area_body_entered(body):
 	_respawn(body);
 
-func _respawn(ball: Node):
+func _respawn(ball: Node, first_pass: bool = false):
 	if ball:
 		remove_child(ball);
 		
@@ -63,7 +64,7 @@ func _respawn(ball: Node):
 	
 	$basket.disable_colliders_and_front_sprite();
 	
-	if not dropped:
+	if not dropped and not first_pass:
 		Score.reset()
 		
 	dropped = false
