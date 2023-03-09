@@ -1,10 +1,21 @@
 extends Node2D
 
 
+@export var particle_count := 5
+
+## in degrees
+@export var direction_spread := 10
+
+
+var emitters: Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$particles.one_shot = true
 	$particles.emitting = false
+	
+	setup_emitters()
+	
 	Events.on_event.connect(handle_event)
 
 
@@ -15,7 +26,8 @@ func handle_event(event: EventBase):
 		$Label.text = str(score_changed.new_score)
 		
 		if score_changed.change_type == ScoreChanged.ChangeType.increment:
-			$particles.restart()
+			for emitter in emitters:
+				emitter.restart()
 			animate_scale()
 	
 	
@@ -32,3 +44,22 @@ func animate_scale():
 		$Label, "scale", 
 		Vector2.ONE, .150
 	)
+
+func setup_emitters():
+	$particles.visible = false
+	
+	for i in particle_count:
+		var angle = float(i) / particle_count * 2 * PI
+		
+		var direction = Vector2.UP.rotated(angle)
+		
+		var clone = ($particles.duplicate()) as CPUParticles2D
+		clone.visible = true
+		clone.set_amount(1)
+		clone.set_direction(direction)
+		clone.set_spread(direction_spread)
+		
+		add_child(clone)
+		emitters.append(clone)
+	
+	
