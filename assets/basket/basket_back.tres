@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MultiSizeImage" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/multi_scale_image/multi_scale_texture.gd" id="1_4kvp2"]
+
+[resource]
+script = ExtResource("1_4kvp2")
+asset_name = "part=back"
+dictionary = {
+1: "part=back.png",
+2: "part=back@2x.png",
+3: "part=back@3x.png"
+}
+scan_assets = false

@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpphjnasqa8pq"]
 
 [ext_resource type="Script" path="res://scripts/ball_body.gd" id="1_idcuu"]
-[ext_resource type="Texture2D" uid="uid://w6i8ixr5kigd" path="res://assets/v2/objects/ball.png" id="2_r0ohq"]
+[ext_resource type="Texture2D" uid="uid://ceimo7r0g47dn" path="res://assets/balls/ball_01/variant=original.png" id="2_dcvyd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_545ub"]
-radius = 223.0
+radius = 74.0
 
 [node name="ball_body" type="RigidBody2D"]
 collision_layer = 9
@@ -20,7 +20,7 @@ strength = 2.0
 
 [node name="ball_sprite" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("2_r0ohq")
+texture = ExtResource("2_dcvyd")
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_545ub")
