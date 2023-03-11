@@ -43,7 +43,7 @@ normal = Vector2(2.08165e-12, -1)
 distance = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
-size = Vector2(1170, 426)
+size = Vector2(390, 142)
 
 [sub_resource type="SystemFont" id="SystemFont_rooty"]
 font_names = PackedStringArray("Patrick Hand")
@@ -53,8 +53,8 @@ msdf_pixel_range = 32
 [sub_resource type="LabelSettings" id="LabelSettings_d773v"]
 line_spacing = 2.08165e-12
 font = SubResource("SystemFont_rooty")
-font_size = 225
-outline_size = 15
+font_size = 75
+outline_size = 5
 
 [sub_resource type="Curve" id="Curve_apfmy"]
 max_value = 200.0
@@ -72,7 +72,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
-max_swipe_distance = 500.0
+max_swipe_distance = 166.0
 metadata/_edit_vertical_guides_ = [585.0]
 
 [node name="Background" parent="." instance=ExtResource("1_stkov")]
@@ -81,12 +81,13 @@ visible = false
 [node name="Background2" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
-position = Vector2(159, 378)
+position = Vector2(73, 144)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
-position = Vector2(583, 2035)
+position = Vector2(194, 678)
+gravity_scale = 5.0
 angular_velocity = 2.3
-strength = 5.7
+strength = 2.3
 size_duration = 0.5
 end_size = 0.7
 
@@ -110,7 +111,7 @@ shape = SubResource("WorldBoundaryShape2D_xbv1c")
 [node name="basket_enable_area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area"]
-position = Vector2(585, 213)
+position = Vector2(195, 71)
 shape = SubResource("RectangleShape2D_0k6k2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -119,7 +120,7 @@ anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
 [node name="Score" type="Node2D" parent="."]
-position = Vector2(585, 1412)
+position = Vector2(195, 470)
 script = ExtResource("7_vtvcm")
 
 [node name="Label" type="Label" parent="Score"]
@@ -142,6 +143,7 @@ vertical_alignment = 1
 
 [node name="particles" type="CPUParticles2D" parent="Score"]
 position = Vector2(-1, -2)
+scale = Vector2(0.333, 0.333)
 amount = 5
 lifetime = 0.5
 explosiveness = 1.0

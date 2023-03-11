@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://svt3q0p4lgbp"]
+
+[ext_resource type="Texture2D" uid="uid://6kbgxrddt420" path="res://assets/basket/part=back@2x.png" id="1_5kvuj"]
+[ext_resource type="Script" path="res://scripts/multi_scale_image/multi_scale_image.gd" id="2_erh1t"]
+[ext_resource type="Resource" path="res://assets/basket/basket_back.tres" id="2_w03vq"]
+
+[node name="multi_scale_image_test" type="Node2D"]
+
+[node name="MultiScaleImage" type="Sprite2D" parent="."]
+position = Vector2(192, 162)
+texture = ExtResource("1_5kvuj")
+region_rect = Rect2(68, 62.5, 70, 69)
+script = ExtResource("2_erh1t")
+multi_scale_texture = ExtResource("2_w03vq")
+render_scale = 2
