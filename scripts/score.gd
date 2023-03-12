@@ -7,15 +7,17 @@ func _ready():
 
 
 func increment(has_collisions: bool):
+	var prev_score = session.score
 	session.increment(1 if has_collisions else 2)
 	Database.sessions.update_session(session)
-	Events.dispatch(ScoreChanged.increment(session.score))
+	Events.dispatch(ScoreChanged.increment(prev_score, session.score))
 
 func reset():
+	var prev_score = session.score
 	session.complete()
 	Database.sessions.update_session(session)
 	session = Database.sessions.create_session()
 	
-	Events.dispatch(ScoreChanged.reset())
+	Events.dispatch(ScoreChanged.reset(prev_score))
 	
 

@@ -51,6 +51,7 @@ func _toggle_collision_shapes(node: Node, value: bool):
 
 func _on_counter_detector_body_entered(body):
 	on_ball_dropped.emit(collisions)
+	Events.dispatch(BallDropped.new())
 
 func _on_ring_sides_body_entered(body):
 	collisions += 1;

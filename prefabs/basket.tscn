@@ -1,34 +1,32 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn8ssl5rs6e0f"]
 
-[ext_resource type="Texture2D" uid="uid://cfbiydepvgak1" path="res://assets/v2/objects/basket.png" id="1_1nkfk"]
+[ext_resource type="Texture2D" uid="uid://d34cs0lk6oi5q" path="res://assets/objects/basket_back.png" id="1_x7skb"]
 [ext_resource type="Script" path="res://scripts/basket.gd" id="2_o4511"]
-[ext_resource type="Texture2D" uid="uid://cskklnvaujw4h" path="res://assets/v2/objects/basket-1.png" id="3_ele5b"]
+[ext_resource type="Texture2D" uid="uid://dblyt8h1dogrr" path="res://assets/objects/basket_front.png" id="3_1acgj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prddx"]
+radius = 21.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_guu8o"]
+radius = 21.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_21ecb"]
 a = Vector2(182, -1)
-b = Vector2(-197, 0)
+b = Vector2(-181, 0)
 
 [node name="basket" type="Sprite2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("1_1nkfk")
+texture = ExtResource("1_x7skb")
 centered = false
 script = ExtResource("2_o4511")
-metadata/_edit_vertical_guides_ = [426.0]
-
-[node name="ring_sprite" type="Sprite2D" parent="."]
-z_index = 1
-position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("3_ele5b")
-centered = false
+metadata/_edit_vertical_guides_ = [360.0]
 
 [node name="ring" type="Node2D" parent="."]
-position = Vector2(426, 426)
+z_index = 2
+position = Vector2(360, 448)
 
 [node name="ring_sides" type="RigidBody2D" parent="ring"]
+z_index = 2
 position = Vector2(2.08165e-12, 2.08165e-12)
 gravity_scale = 2.66454e-15
 continuous_cd = 1
@@ -38,17 +36,17 @@ freeze = true
 freeze_mode = 1
 
 [node name="left_collider" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(-192, 2.08165e-12)
+position = Vector2(-195, 2.08165e-12)
 shape = SubResource("CircleShape2D_prddx")
 disabled = true
 
 [node name="right_collider" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(192, 2.08165e-12)
+position = Vector2(200, 2.08165e-12)
 shape = SubResource("CircleShape2D_guu8o")
 disabled = true
 
 [node name="counter_detector" type="Area2D" parent="ring"]
-position = Vector2(6, 13)
+position = Vector2(6, 23)
 collision_layer = 8
 
 [node name="arc" type="CollisionPolygon2D" parent="ring/counter_detector"]
@@ -58,11 +56,17 @@ polygon = PackedVector2Array(-193, 6, -130, 99, -6, 138, 124, 116, 190, 13, 119,
 disabled = true
 
 [node name="line" type="CollisionShape2D" parent="ring/counter_detector"]
-position = Vector2(0, 176)
+position = Vector2(-7, 143)
 shape = SubResource("SegmentShape2D_21ecb")
 disabled = true
 one_way_collision_margin = 0.0
 metadata/ignore = true
+
+[node name="ring_sprite" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("3_1acgj")
+centered = false
 
 [connection signal="body_entered" from="ring/ring_sides" to="." method="_on_ring_sides_body_entered"]
 [connection signal="body_entered" from="ring/counter_detector" to="." method="_on_counter_detector_body_entered"]

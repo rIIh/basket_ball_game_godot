@@ -7,14 +7,22 @@ var ball_body_original;
 var ball_body;
 
 var dropped := false;
-
 var over_body = false;
+
+var is_playing := false :
+	set(value):
+		if value and not is_playing:
+			$Score.visible = true
+			$Play.create_tween().tween_property($Play, "scale", Vector2.ZERO, .250).set_ease(Tween.EASE_OUT_IN)
+			is_playing = value 
+
 var dragging = false
 var drag_breaked = false;
 func set_dragging(value: bool):
 	if dragging and !value:
 		drag_just_ended = true;
 	dragging = value;
+	is_playing = true;
 	
 	
 var drag_start_position: Vector2;

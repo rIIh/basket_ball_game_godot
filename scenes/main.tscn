@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=22 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
@@ -7,7 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
 [ext_resource type="Script" path="res://scripts/ui/score_label.gd" id="7_vtvcm"]
-[ext_resource type="Texture2D" uid="uid://yvfjvm3l14ce" path="res://assets/v2/star.png" id="8_esgnp"]
+[ext_resource type="Texture2D" uid="uid://debpgmbkw7fdj" path="res://assets/icons/star-36px.png" id="8_aigc5"]
+[ext_resource type="SystemFont" uid="uid://cvcqftjrn8hm7" path="res://fonts/system_patrick_hand.tres" id="8_r7bsj"]
+[ext_resource type="PackedScene" uid="uid://cywbc1v6d78og" path="res://prefabs/drop_indicator.tscn" id="9_6bpfp"]
+[ext_resource type="Texture2D" uid="uid://6bvc214txenp" path="res://assets/other/play.png" id="9_7xvhc"]
+[ext_resource type="Script" path="res://scripts/drop_indicator_trigger.gd" id="9_trr3a"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
 script/source = "extends Area2D
@@ -45,14 +49,9 @@ distance = 0.01
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
 size = Vector2(1170, 426)
 
-[sub_resource type="SystemFont" id="SystemFont_rooty"]
-font_names = PackedStringArray("Patrick Hand")
-generate_mipmaps = true
-msdf_pixel_range = 32
-
 [sub_resource type="LabelSettings" id="LabelSettings_d773v"]
 line_spacing = 2.08165e-12
-font = SubResource("SystemFont_rooty")
+font = ExtResource("8_r7bsj")
 font_size = 225
 outline_size = 15
 
@@ -81,7 +80,7 @@ visible = false
 [node name="Background2" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
-position = Vector2(159, 378)
+position = Vector2(222, 513)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
 position = Vector2(583, 2035)
@@ -119,6 +118,7 @@ anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
 [node name="Score" type="Node2D" parent="."]
+visible = false
 position = Vector2(585, 1412)
 script = ExtResource("7_vtvcm")
 
@@ -140,13 +140,28 @@ label_settings = SubResource("LabelSettings_d773v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Drop Inidicator Point" type="Control" parent="Score"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = -604.0
+offset_right = 42.0
+offset_bottom = -564.0
+script = ExtResource("9_trr3a")
+
+[node name="Drop Indicator" parent="Score/Drop Inidicator Point" instance=ExtResource("9_6bpfp")]
+gravity_scale = 2.0
+initial_impulse = 5.0
+direction_spread = 15.0
+horizontal_position_spread = 2.08165e-12
+
 [node name="particles" type="CPUParticles2D" parent="Score"]
 position = Vector2(-1, -2)
 amount = 5
 lifetime = 0.5
 explosiveness = 1.0
 local_coords = true
-texture = ExtResource("8_esgnp")
+texture = ExtResource("8_aigc5")
 spread = 180.0
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_min = 600.0
@@ -158,7 +173,14 @@ angle_max = 720.0
 scale_amount_min = 0.9
 scale_amount_max = 1.1
 scale_amount_curve = SubResource("Curve_dggwa")
+color = Color(0.972549, 0.878431, 0.290196, 1)
 color_ramp = SubResource("Gradient_8cfff")
+
+[node name="Play" type="Sprite2D" parent="."]
+position = Vector2(586, 1446)
+texture = ExtResource("9_7xvhc")
+centered = false
+offset = Vector2(-289, -180)
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
