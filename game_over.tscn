@@ -1,0 +1,321 @@
+[gd_scene load_steps=11 format=3 uid="uid://csbx0w5nr2iq5"]
+
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="1_04jrp"]
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="2_5qqca"]
+[ext_resource type="Texture2D" uid="uid://hy33og4d4254" path="res://assets/ui/divider.png" id="2_tbk7a"]
+
+[sub_resource type="Animation" id="Animation_xjtu2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Center:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_c5bwk"]
+resource_name = "show"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Center/Column/Upper Container/Upper Inner Container:size:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(2.08165e-12, -0.25, 0, 0.25, 0, 244, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Center/Column/Upper Container/Upper Inner Container:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(244, -0.25, 0, 0.25, 0, 2.08165e-12, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Center/Column/Bottom Container/Bottom Inner Container:size:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(2.08165e-12, -0.25, 0, 0.25, 0, 384, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.2, 0.7)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Center/Column/HSeparator/Control:size:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(2.08165e-12, -0.25, 0, 0.25, 0, 768, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Center/Column/HSeparator/Control:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(384, -0.25, 0, 0.25, 0, 2.08165e-12, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Center/Column/HSeparator/Control:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 2.08165e-12, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Center:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_onxw2"]
+_data = {
+"RESET": SubResource("Animation_xjtu2"),
+"show": SubResource("Animation_c5bwk")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_cnnx0"]
+line_spacing = 2.08165e-12
+font_size = 39
+font_color = Color(0.796078, 0.796078, 0.796078, 1)
+outline_size = 6
+outline_color = Color(0.796078, 0.796078, 0.796078, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_smph0"]
+line_spacing = 2.08165e-12
+font_size = 90
+font_color = Color(0.917647, 0.321569, 0.333333, 1)
+outline_size = 6
+outline_color = Color(0.917647, 0.321569, 0.333333, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pgqvv"]
+line_spacing = 2.08165e-12
+font_size = 60
+font_color = Color(0.796078, 0.796078, 0.796078, 1)
+outline_size = 6
+outline_color = Color(0.796078, 0.796078, 0.796078, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_823q3"]
+line_spacing = 2.08165e-12
+font_size = 150
+font_color = Color(0.945098, 0.635294, 0.223529, 1)
+outline_size = 6
+outline_color = Color(0.945098, 0.635294, 0.223529, 1)
+
+[node name="Game Over" type="Control" node_paths=PackedStringArray("last_score_label", "best_score_label")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1170.0
+offset_bottom = 2532.0
+mouse_filter = 2
+theme = ExtResource("1_04jrp")
+script = ExtResource("2_5qqca")
+last_score_label = NodePath("Center/Column/Bottom Container/Bottom Inner Container/VBoxContainer/SizedBox=4/Text=Last Score Value")
+best_score_label = NodePath("Center/Column/Upper Container/Upper Inner Container/Column/SizedBox=2/Text=Best Score Value")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_onxw2")
+}
+
+[node name="Center" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1125.0
+offset_bottom = -634.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Column" type="VBoxContainer" parent="Center"]
+custom_minimum_size = Vector2(768, 2.08165e-12)
+layout_mode = 2
+
+[node name="Upper Container" type="Control" parent="Center/Column"]
+custom_minimum_size = Vector2(2.08165e-12, 244)
+layout_mode = 2
+
+[node name="Upper Inner Container" type="Control" parent="Center/Column/Upper Container"]
+clip_contents = true
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Column" type="VBoxContainer" parent="Center/Column/Upper Container/Upper Inner Container"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 244.0
+grow_horizontal = 2
+
+[node name="SizedBox=1" type="Control" parent="Center/Column/Upper Container/Upper Inner Container/Column"]
+custom_minimum_size = Vector2(2.08165e-12, 100)
+layout_mode = 2
+
+[node name="Text=Best Score Value" type="Label" parent="Center/Column/Upper Container/Upper Inner Container/Column/SizedBox=1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.5
+offset_top = -41.244
+offset_right = 247.5
+offset_bottom = 40.756
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "BEST SCORE:"
+label_settings = SubResource("LabelSettings_cnnx0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SizedBox=2" type="Control" parent="Center/Column/Upper Container/Upper Inner Container/Column"]
+custom_minimum_size = Vector2(2.08165e-12, 140)
+layout_mode = 2
+
+[node name="Text=Best Score Value" type="Label" parent="Center/Column/Upper Container/Upper Inner Container/Column/SizedBox=2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.5
+offset_top = -112.244
+offset_right = 247.5
+offset_bottom = 111.756
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "15"
+label_settings = SubResource("LabelSettings_smph0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="Control" parent="Center/Column"]
+clip_contents = true
+custom_minimum_size = Vector2(2.08165e-12, 9)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Center/Column/HSeparator"]
+clip_contents = true
+custom_minimum_size = Vector2(2.08165e-12, 9)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 9.0
+grow_horizontal = 2
+
+[node name="Divider" type="Sprite2D" parent="Center/Column/HSeparator/Control"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("2_tbk7a")
+centered = false
+
+[node name="Bottom Container" type="Control" parent="Center/Column"]
+custom_minimum_size = Vector2(2.08165e-12, 384)
+layout_mode = 2
+
+[node name="Bottom Inner Container" type="Control" parent="Center/Column/Bottom Container"]
+clip_contents = true
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 384.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Center/Column/Bottom Container/Bottom Inner Container"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -384.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SizedBox=3" type="Control" parent="Center/Column/Bottom Container/Bottom Inner Container/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 140)
+layout_mode = 2
+
+[node name="Text=Last Score Title" type="Label" parent="Center/Column/Bottom Container/Bottom Inner Container/VBoxContainer/SizedBox=3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.0
+offset_top = -72.244
+offset_right = 248.0
+offset_bottom = 70.756
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "LAST SCORE:"
+label_settings = SubResource("LabelSettings_pgqvv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SizedBox=4" type="Control" parent="Center/Column/Bottom Container/Bottom Inner Container/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 240)
+layout_mode = 2
+
+[node name="Text=Last Score Value" type="Label" parent="Center/Column/Bottom Container/Bottom Inner Container/VBoxContainer/SizedBox=4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.0
+offset_top = -142.244
+offset_right = 248.0
+offset_bottom = 142.756
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "15"
+label_settings = SubResource("LabelSettings_823q3")
+horizontal_alignment = 1
+vertical_alignment = 1

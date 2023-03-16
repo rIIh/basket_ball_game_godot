@@ -18,20 +18,35 @@ func _ready():
 	
 	Events.on_event.connect(handle_event)
 	$Label.text = str(Score.session.score)
+	$Label.scale = Vector2.ONE if Score.session.score > 0 else Vector2.ZERO
 
 
+var state_tween: Tween
 func handle_event(event: EventBase):
-	if event is ScoreChanged:
-		var score_changed := event as ScoreChanged
-			
-		$Label.text = str(score_changed.new_score)
+	if event is GameStateChanged:
+		event = event as GameStateChanged
 		
-		if score_changed.change_type == ScoreChanged.ChangeType.increment:
+		state_tween = create_tween()
+		if event.next_state != GameState.playing:
+			state_tween.tween_property($Label, "scale", Vector2.ZERO, .150).set_ease(Tween.EASE_OUT)
+			state_tween.tween_callback(func(): $Label.text = "0")
+		elif Score.session.score > 0:
+			state_tween.tween_property($Label, "scale", Vector2.ONE, .230).set_ease(Tween.EASE_OUT)
+			
+			
+
+	if event is ScoreChanged:
+		event = event as ScoreChanged
+		
+		if event.change_type == ScoreChanged.ChangeType.increment:
+			$Label.text = str(event.new_score)
+			
 			for emitter in emitters:
 				emitter.restart()
+
 			animate_scale()
-	
-	
+
+
 var tween: Tween
 func animate_scale():
 	if tween: tween.kill()

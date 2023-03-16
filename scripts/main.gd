@@ -9,12 +9,12 @@ var ball_body;
 var dropped := false;
 var over_body = false;
 
-var is_playing := false :
+var game_state: int = GameState.initial : 
 	set(value):
-		if value and not is_playing:
-			$Score.visible = true
-			$Play.create_tween().tween_property($Play, "scale", Vector2.ZERO, .250).set_ease(Tween.EASE_OUT_IN)
-			is_playing = value 
+		if game_state != value:
+			Events.dispatch(GameStateChanged.new(game_state, value))
+			game_state = value
+			
 
 var dragging = false
 var drag_breaked = false;
@@ -22,7 +22,8 @@ func set_dragging(value: bool):
 	if dragging and !value:
 		drag_just_ended = true;
 	dragging = value;
-	is_playing = true;
+	
+	game_state = GameState.playing
 	
 	
 var drag_start_position: Vector2;
@@ -73,9 +74,11 @@ func _respawn(ball: Node, first_pass: bool = false):
 	$basket.disable_colliders_and_front_sprite();
 	
 	if not dropped and not first_pass:
+		game_state = GameState.finished
 		Score.reset()
 		
 	dropped = false
+	
 
 func _on_basket_enable_area_entered(body):
 	$basket.enable_colliders_and_front_sprite();

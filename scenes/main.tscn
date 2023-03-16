@@ -1,17 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=23 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
-[ext_resource type="PackedScene" uid="uid://uyst81mwfgux" path="res://prefabs/background.tscn" id="1_stkov"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
+[ext_resource type="FontFile" uid="uid://bftaq3yc03oq6" path="res://assets/fonts/PressStart2P-Regular.ttf" id="7_hjy2p"]
 [ext_resource type="Script" path="res://scripts/ui/score_label.gd" id="7_vtvcm"]
 [ext_resource type="Texture2D" uid="uid://debpgmbkw7fdj" path="res://assets/icons/star-36px.png" id="8_aigc5"]
-[ext_resource type="SystemFont" uid="uid://cvcqftjrn8hm7" path="res://fonts/system_patrick_hand.tres" id="8_r7bsj"]
 [ext_resource type="PackedScene" uid="uid://cywbc1v6d78og" path="res://prefabs/drop_indicator.tscn" id="9_6bpfp"]
 [ext_resource type="Texture2D" uid="uid://6bvc214txenp" path="res://assets/other/play.png" id="9_7xvhc"]
 [ext_resource type="Script" path="res://scripts/drop_indicator_trigger.gd" id="9_trr3a"]
+[ext_resource type="PackedScene" uid="uid://csbx0w5nr2iq5" path="res://game_over.tscn" id="14_i0wn7"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
 script/source = "extends Area2D
@@ -51,9 +51,11 @@ size = Vector2(1170, 426)
 
 [sub_resource type="LabelSettings" id="LabelSettings_d773v"]
 line_spacing = 2.08165e-12
-font = ExtResource("8_r7bsj")
-font_size = 225
-outline_size = 15
+font = ExtResource("7_hjy2p")
+font_size = 210
+font_color = Color(0.796078, 0.796078, 0.796078, 1)
+outline_size = 2
+outline_color = Color(0.796078, 0.796078, 0.796078, 1)
 
 [sub_resource type="Curve" id="Curve_apfmy"]
 max_value = 200.0
@@ -69,25 +71,36 @@ interpolation_mode = 2
 offsets = PackedFloat32Array(0.81457, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="GDScript" id="GDScript_mokjr"]
+script/source = "extends Sprite2D
+
+func _ready():
+	Events.on_event.connect(handle_event)
+
+
+func handle_event(event: EventBase):
+	if event is GameStateChanged:
+		event = event as GameStateChanged
+		if event.next_state != GameState.initial:
+			create_tween().tween_property(self, \"scale\", Vector2.ZERO, .250).set_ease(Tween.EASE_OUT_IN)
+"
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
 max_swipe_distance = 500.0
 metadata/_edit_vertical_guides_ = [585.0]
 
-[node name="Background" parent="." instance=ExtResource("1_stkov")]
-visible = false
-
-[node name="Background2" parent="." instance=ExtResource("3_gh8tq")]
+[node name="Background" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
 position = Vector2(222, 513)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
-position = Vector2(583, 2035)
+position = Vector2(583, 2134)
 angular_velocity = 2.3
-strength = 5.7
+strength = 5.8
 size_duration = 0.5
-end_size = 0.7
+end_size = 0.55
 
 [node name="out_area" type="Area2D" parent="."]
 input_pickable = false
@@ -118,7 +131,6 @@ anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
 [node name="Score" type="Node2D" parent="."]
-visible = false
 position = Vector2(585, 1412)
 script = ExtResource("7_vtvcm")
 
@@ -152,7 +164,7 @@ script = ExtResource("9_trr3a")
 [node name="Drop Indicator" parent="Score/Drop Inidicator Point" instance=ExtResource("9_6bpfp")]
 gravity_scale = 2.0
 initial_impulse = 5.0
-direction_spread = 15.0
+direction_spread = 2.08165e-12
 horizontal_position_spread = 2.08165e-12
 
 [node name="particles" type="CPUParticles2D" parent="Score"]
@@ -177,10 +189,14 @@ color = Color(0.972549, 0.878431, 0.290196, 1)
 color_ramp = SubResource("Gradient_8cfff")
 
 [node name="Play" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(586, 1446)
 texture = ExtResource("9_7xvhc")
 centered = false
 offset = Vector2(-289, -180)
+script = SubResource("GDScript_mokjr")
+
+[node name="Game Over" parent="." instance=ExtResource("14_i0wn7")]
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]

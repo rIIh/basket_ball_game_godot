@@ -28,6 +28,18 @@ func _create_if_not_exists() -> void:
 
 	_connection.create_table(table, get_structure())
 
+func get_best_session() -> Session:
+	_connection.query("SELECT id, score, completed_at FROM %s ORDER BY score DESC LIMIT 1;" % table)
+	if _connection.query_result:
+		var id = _connection.query_result[0]["id"]
+		var score = _connection.query_result[0]["score"]
+		var completed = _connection.query_result[0]["completed_at"]
+		
+		return Session.new(id, score, Session.State.completed if completed else Session.State.running)
+
+	return null
+
+
 func get_last_session() -> Session:
 	_connection.query("SELECT id, score, completed_at FROM %s ORDER BY id DESC LIMIT 1;" % table)
 	if _connection.query_result:
@@ -59,6 +71,7 @@ func create_session() -> Session:
 		
 	_connection.insert_row(table, {"id": id, "score": 0, "started_at": time})
 	return Session.zero(id)
+
 
 func get_last_session_or_new() -> Session:
 	var last: Session = get_last_session()

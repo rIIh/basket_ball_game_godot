@@ -28,9 +28,11 @@ func _toggle(value: bool):
 	
 	var sides = $ring/ring_sides
 	var counter = $ring/counter_detector
+	var cloth = $ring/cloth
 	
 	_toggle_collision_shapes(sides, value)
 	_toggle_collision_shapes(counter, value)
+	_toggle_collision_shapes(cloth, value)
 
 func enable_colliders_and_front_sprite():
 	ring_is_over = true;
