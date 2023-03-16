@@ -130,7 +130,7 @@ script = SubResource("GDScript_mokjr")
 
 [node name="Game Over" parent="." instance=ExtResource("14_i0wn7")]
 
-[node name="Control" type="Control" parent="."]
+[node name="Top Controls" type="Control" parent="."]
 custom_minimum_size = Vector2(1170, 2.08165e-12)
 layout_mode = 3
 anchors_preset = 10
@@ -140,7 +140,7 @@ offset_bottom = 426.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Top Controls"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,42 +151,41 @@ theme_override_constants/margin_left = 150
 theme_override_constants/margin_top = 150
 theme_override_constants/margin_right = 150
 
-[node name="Control3" type="Control" parent="Control/MarginContainer"]
+[node name="container" type="Control" parent="Top Controls/MarginContainer"]
 layout_mode = 2
 
-[node name="stars" type="PanelContainer" parent="Control/MarginContainer/Control3"]
-custom_minimum_size = Vector2(2.08165e-12, 180)
+[node name="stars" type="PanelContainer" parent="Top Controls/MarginContainer/container"]
+visible = false
+custom_minimum_size = Vector2(180, 180)
 layout_mode = 2
-offset_right = 342.0
+offset_right = 180.0
 offset_bottom = 180.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4avug")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control3/stars"]
+[node name="MarginContainer" type="MarginContainer" parent="Top Controls/MarginContainer/container/stars"]
 layout_mode = 2
 theme_override_constants/margin_left = 36
-theme_override_constants/margin_right = 48
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Control3/stars/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Top Controls/MarginContainer/container/stars/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 0
 
-[node name="icon" type="TextureRect" parent="Control/MarginContainer/Control3/stars/MarginContainer/HBoxContainer"]
+[node name="icon" type="TextureRect" parent="Top Controls/MarginContainer/container/stars/MarginContainer/HBoxContainer"]
 modulate = Color(0.972549, 0.878431, 0.290196, 1)
 layout_mode = 2
 texture = ExtResource("8_aigc5")
 stretch_mode = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control3/stars/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Top Controls/MarginContainer/container/stars/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 8
 
-[node name="text" type="Label" parent="Control/MarginContainer/Control3/stars/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="text" type="Label" parent="Top Controls/MarginContainer/container/stars/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("13_a7tk2")
-text = "12"
 label_settings = SubResource("LabelSettings_y3pvj")
 
-[node name="menu" type="AspectRatioContainer" parent="Control/MarginContainer/Control3"]
+[node name="menu" type="AspectRatioContainer" parent="Top Controls/MarginContainer/container"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -197,12 +196,12 @@ grow_horizontal = 0
 stretch_mode = 1
 alignment_horizontal = 2
 
-[node name="panel" type="PanelContainer" parent="Control/MarginContainer/Control3/menu"]
+[node name="panel" type="PanelContainer" parent="Top Controls/MarginContainer/container/menu"]
 custom_minimum_size = Vector2(2.08165e-12, 180)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4avug")
 
-[node name="icon" type="TextureRect" parent="Control/MarginContainer/Control3/menu/panel"]
+[node name="icon" type="TextureRect" parent="Top Controls/MarginContainer/container/menu/panel"]
 layout_mode = 2
 texture = ExtResource("11_bkjeu")
 stretch_mode = 3
