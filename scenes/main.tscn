@@ -1,16 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=20 format=3 uid="uid://b3rkoplkstp35"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
-[ext_resource type="FontFile" uid="uid://bftaq3yc03oq6" path="res://assets/fonts/PressStart2P-Regular.ttf" id="7_hjy2p"]
-[ext_resource type="Script" path="res://scripts/ui/score_label.gd" id="7_vtvcm"]
+[ext_resource type="PackedScene" uid="uid://bikrsvotdvf3u" path="res://prefabs/score.tscn" id="6_e4m4f"]
 [ext_resource type="Texture2D" uid="uid://debpgmbkw7fdj" path="res://assets/icons/star-36px.png" id="8_aigc5"]
-[ext_resource type="PackedScene" uid="uid://cywbc1v6d78og" path="res://prefabs/drop_indicator.tscn" id="9_6bpfp"]
 [ext_resource type="Texture2D" uid="uid://6bvc214txenp" path="res://assets/other/play.png" id="9_7xvhc"]
-[ext_resource type="Script" path="res://scripts/drop_indicator_trigger.gd" id="9_trr3a"]
+[ext_resource type="Texture2D" uid="uid://cqtu3dsqnitd6" path="res://assets/icons/menu-36px.png" id="11_bkjeu"]
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="13_a7tk2"]
 [ext_resource type="PackedScene" uid="uid://csbx0w5nr2iq5" path="res://game_over.tscn" id="14_i0wn7"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
@@ -49,28 +48,6 @@ distance = 0.01
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
 size = Vector2(1170, 426)
 
-[sub_resource type="LabelSettings" id="LabelSettings_d773v"]
-line_spacing = 2.08165e-12
-font = ExtResource("7_hjy2p")
-font_size = 210
-font_color = Color(0.796078, 0.796078, 0.796078, 1)
-outline_size = 2
-outline_color = Color(0.796078, 0.796078, 0.796078, 1)
-
-[sub_resource type="Curve" id="Curve_apfmy"]
-max_value = 200.0
-_data = [Vector2(0.247897, 0), 0.0, 2.08165e-12, 0, 0, Vector2(1, 112.791), 149.968, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_dggwa"]
-_data = [Vector2(0, 0), 0.0, 4.00725, 0, 1, Vector2(0.247897, 0.993384), 0.301428, 0.301428, 0, 0, Vector2(0.998785, 0), -1.32295, 0.0, 1, 0]
-point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_8cfff"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.81457, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
 [sub_resource type="GDScript" id="GDScript_mokjr"]
 script/source = "extends Sprite2D
 
@@ -84,6 +61,17 @@ func handle_event(event: EventBase):
 		if event.next_state != GameState.initial:
 			create_tween().tween_property(self, \"scale\", Vector2.ZERO, .250).set_ease(Tween.EASE_OUT_IN)
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4avug"]
+bg_color = Color(0.796078, 0.796078, 0.796078, 1)
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
+[sub_resource type="LabelSettings" id="LabelSettings_y3pvj"]
+line_spacing = 2.08165e-12
+font_size = 60
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
@@ -130,63 +118,7 @@ offset = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 script = ExtResource("5_ppjvj")
 
-[node name="Score" type="Node2D" parent="."]
-position = Vector2(585, 1412)
-script = ExtResource("7_vtvcm")
-
-[node name="Label" type="Label" parent="Score"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -161.0
-offset_right = 128.0
-offset_bottom = 149.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(129, 161)
-text = "13"
-label_settings = SubResource("LabelSettings_d773v")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Drop Inidicator Point" type="Control" parent="Score"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 2.0
-offset_top = -604.0
-offset_right = 42.0
-offset_bottom = -564.0
-script = ExtResource("9_trr3a")
-
-[node name="Drop Indicator" parent="Score/Drop Inidicator Point" instance=ExtResource("9_6bpfp")]
-gravity_scale = 2.0
-initial_impulse = 5.0
-direction_spread = 2.08165e-12
-horizontal_position_spread = 2.08165e-12
-
-[node name="particles" type="CPUParticles2D" parent="Score"]
-position = Vector2(-1, -2)
-amount = 5
-lifetime = 0.5
-explosiveness = 1.0
-local_coords = true
-texture = ExtResource("8_aigc5")
-spread = 180.0
-gravity = Vector2(2.08165e-12, 2.08165e-12)
-initial_velocity_min = 600.0
-initial_velocity_max = 700.0
-damping_min = 200.0
-damping_max = 200.0
-damping_curve = SubResource("Curve_apfmy")
-angle_max = 720.0
-scale_amount_min = 0.9
-scale_amount_max = 1.1
-scale_amount_curve = SubResource("Curve_dggwa")
-color = Color(0.972549, 0.878431, 0.290196, 1)
-color_ramp = SubResource("Gradient_8cfff")
+[node name="Score" parent="." instance=ExtResource("6_e4m4f")]
 
 [node name="Play" type="Sprite2D" parent="."]
 visible = false
@@ -197,6 +129,83 @@ offset = Vector2(-289, -180)
 script = SubResource("GDScript_mokjr")
 
 [node name="Game Over" parent="." instance=ExtResource("14_i0wn7")]
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1170, 2.08165e-12)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 1170.0
+offset_bottom = 426.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 150
+
+[node name="Control3" type="Control" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="stars" type="PanelContainer" parent="Control/MarginContainer/Control3"]
+custom_minimum_size = Vector2(2.08165e-12, 180)
+layout_mode = 2
+offset_right = 342.0
+offset_bottom = 180.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4avug")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control3/stars"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_right = 48
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Control3/stars/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="icon" type="TextureRect" parent="Control/MarginContainer/Control3/stars/MarginContainer/HBoxContainer"]
+modulate = Color(0.972549, 0.878431, 0.290196, 1)
+layout_mode = 2
+texture = ExtResource("8_aigc5")
+stretch_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control3/stars/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+
+[node name="text" type="Label" parent="Control/MarginContainer/Control3/stars/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("13_a7tk2")
+text = "12"
+label_settings = SubResource("LabelSettings_y3pvj")
+
+[node name="menu" type="AspectRatioContainer" parent="Control/MarginContainer/Control3"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -196.0
+offset_bottom = 180.0
+grow_horizontal = 0
+stretch_mode = 1
+alignment_horizontal = 2
+
+[node name="panel" type="PanelContainer" parent="Control/MarginContainer/Control3/menu"]
+custom_minimum_size = Vector2(2.08165e-12, 180)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4avug")
+
+[node name="icon" type="TextureRect" parent="Control/MarginContainer/Control3/menu/panel"]
+layout_mode = 2
+texture = ExtResource("11_bkjeu")
+stretch_mode = 3
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
