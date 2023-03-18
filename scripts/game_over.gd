@@ -4,7 +4,11 @@ extends Control
 @export var best_score_label: Label
 @export var animation_player: AnimationPlayer
 
+var session_repository: SessionRepository
+
 func _ready():
+	session_repository = SessionProvider.repository
+	
 	Events.on_event.connect(handle_event)
 	
 	if animation_player == null:
@@ -15,8 +19,8 @@ func handle_event(_event: EventBase):
 		var event := _event as GameStateChanged
 		
 		if event.next_state == GameState.finished:
-			var last_session := Database.sessions.get_last_session()
-			var best_session := Database.sessions.get_best_session()
+			var last_session := session_repository.get_last_session()
+			var best_session := session_repository.get_best_session()
 			
 			last_score_label.text = str(last_session.score)
 			best_score_label.text = str(best_session.score)

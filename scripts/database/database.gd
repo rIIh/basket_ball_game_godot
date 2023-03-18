@@ -1,4 +1,6 @@
-extends Node
+extends Object
+
+class_name Database
 
 const verbosity_level : int = SQLite.VERBOSE
 
@@ -13,7 +15,7 @@ var _database_path := ":memory:" if _in_memory else (_database_folder + "/" + _d
 
 var sessions: SessionTable
 
-func _ready():
+func _init():
 	DirAccess.make_dir_recursive_absolute(_database_folder)
 	
 	_connection = SQLite.new()

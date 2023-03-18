@@ -1,7 +1,10 @@
 extends Node2D
 
 
+@export_group("Swipe Rules")
+@export var min_swipe_distance: float = 20;
 @export var max_swipe_distance: float = 300;
+@export var max_push_direction_angle: float = 75
 
 var ball_body_original;
 var ball_body;
@@ -90,8 +93,12 @@ func _on_ball_body_input_event(viewport, event: InputEvent, shape_idx):
 			set_dragging(true)
 
 func handle_drag_end():
-	var direction = (drag_end_position - drag_start_position).normalized()
-	ball_body.push(direction)
+	var distance = (drag_end_position - drag_start_position)
+	var direction = distance.normalized()
+	var angle = rad_to_deg(direction.angle_to(Vector2.UP))
+	
+	if abs(angle) < max_push_direction_angle and distance.length() > min_swipe_distance:
+		ball_body.push(direction)
 
 func _on_ball_body_mouse_entered():
 	over_body = true;
