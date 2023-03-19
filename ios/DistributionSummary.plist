@@ -20,6 +20,37 @@
 				<key>type</key>
 				<string>Apple Development</string>
 			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>8C093F935E7A3EA5C6ED2004C069837214BD45F2</string>
+						<key>dateExpires</key>
+						<string>24.11.2023</string>
+						<key>type</key>
+						<string>Apple Development</string>
+					</dict>
+					<key>name</key>
+					<string>libgdsqlite.ios.template_debug.arm64.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>32LH6JWN62</string>
+						<key>name</key>
+						<string></string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+			</array>
 			<key>entitlements</key>
 			<dict>
 				<key>application-identifier</key>
@@ -34,9 +65,9 @@
 			<key>profile</key>
 			<dict>
 				<key>UUID</key>
-				<string>256d6add-34d4-4c21-a3ae-242e07a34968</string>
+				<string>69fe7f54-fd35-410e-be70-5f350a0f572d</string>
 				<key>dateExpires</key>
-				<string>23.03.2023</string>
+				<string>26.03.2023</string>
 				<key>name</key>
 				<string>iOS Team Provisioning Profile: space.melv.basketball</string>
 			</dict>
