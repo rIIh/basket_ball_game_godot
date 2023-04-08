@@ -1,21 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn8ssl5rs6e0f"]
 
 [ext_resource type="Texture2D" uid="uid://d34cs0lk6oi5q" path="res://assets/objects/basket_back.png" id="1_x7skb"]
-[ext_resource type="Script" path="res://scripts/basket.gd" id="2_o4511"]
+[ext_resource type="Script" path="res://scripts/basket_script.gd" id="2_o4511"]
 [ext_resource type="Texture2D" uid="uid://dblyt8h1dogrr" path="res://assets/objects/basket_front.png" id="3_1acgj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prddx"]
-radius = 21.0
+radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_guu8o"]
-radius = 21.0
+radius = 32.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_21ecb"]
 a = Vector2(182, -1)
 b = Vector2(-181, 0)
 
 [node name="basket" type="Sprite2D"]
-position = Vector2(2.08165e-12, 2.08165e-12)
 texture = ExtResource("1_x7skb")
 centered = false
 script = ExtResource("2_o4511")
@@ -36,12 +35,12 @@ freeze = true
 freeze_mode = 1
 
 [node name="left_collider" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(-195, 2.08165e-12)
+position = Vector2(-185, 4)
 shape = SubResource("CircleShape2D_prddx")
 disabled = true
 
 [node name="right_collider" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(200, 2.08165e-12)
+position = Vector2(191, 4)
 shape = SubResource("CircleShape2D_guu8o")
 disabled = true
 
@@ -51,9 +50,9 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="arc" type="CollisionPolygon2D" parent="ring/counter_detector"]
-position = Vector2(-2, 1)
+position = Vector2(-2, 11)
 build_mode = 1
-polygon = PackedVector2Array(-193, 6, -130, 99, -6, 138, 124, 116, 190, 13, 119, 78, -5, 99, -128, 68)
+polygon = PackedVector2Array(-170, 6, -130, 99, -6, 138, 124, 116, 168, 4, 119, 78, -5, 99, -128, 68)
 disabled = true
 
 [node name="line" type="CollisionShape2D" parent="ring/counter_detector"]
@@ -69,13 +68,14 @@ freeze = true
 freeze_mode = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ring/cloth"]
-polygon = PackedVector2Array(-175, 16, -135, 65, -135, 154, -127, 164, -129, 61, -169, 14)
+position = Vector2(7, 4)
+polygon = PackedVector2Array(-175, 20, -135, 65, -135, 147, -129, 146, -129, 61, -167, 19)
 disabled = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(0.8797, 0)
 scale = Vector2(1.00781, 1)
-polygon = PackedVector2Array(143.003, 63, 143.995, 154, 137.05, 162, 137.05, 58, 170.786, 12, 179.716, 16)
+polygon = PackedVector2Array(132.089, 66, 131.096, 150, 126.135, 150, 125.143, 65, 170.786, 12, 177.732, 14)
 disabled = true
 
 [node name="ring_sprite" type="Sprite2D" parent="."]

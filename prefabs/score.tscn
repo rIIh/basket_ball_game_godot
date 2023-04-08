@@ -10,9 +10,9 @@
 line_spacing = 2.08165e-12
 font = ExtResource("2_noqog")
 font_size = 210
-font_color = Color(0.796078, 0.796078, 0.796078, 1)
+font_color = Color(0.615686, 0.615686, 0.615686, 1)
 outline_size = 2
-outline_color = Color(0.796078, 0.796078, 0.796078, 1)
+outline_color = Color(0.615686, 0.615686, 0.615686, 1)
 
 [sub_resource type="Curve" id="Curve_apfmy"]
 max_value = 200.0

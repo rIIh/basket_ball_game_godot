@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://1325knfiuk7p" path="res://assets/objects/ball.png" id="2_1xqmm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_545ub"]
-radius = 227.002
+radius = 196.573
 
 [node name="ball_body" type="RigidBody2D"]
+position = Vector2(0, -197)
 collision_layer = 9
 input_pickable = true
 gravity_scale = 10.0

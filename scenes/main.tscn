@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3rkoplkstp35"]
+[gd_scene load_steps=20 format=3 uid="uid://dc1ependdjl6p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
@@ -84,7 +84,7 @@ metadata/_edit_vertical_guides_ = [585.0]
 position = Vector2(222, 513)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
-position = Vector2(583, 2134)
+position = Vector2(583, 2077)
 angular_velocity = 2.3
 strength = 5.8
 size_duration = 0.5
@@ -131,6 +131,7 @@ script = SubResource("GDScript_mokjr")
 [node name="Game Over" parent="." instance=ExtResource("14_i0wn7")]
 
 [node name="Top Controls" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(1170, 2.08165e-12)
 layout_mode = 3
 anchors_preset = 10
