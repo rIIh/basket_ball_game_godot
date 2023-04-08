@@ -15,7 +15,6 @@
 		D0BCFE4618AEBDA2004A7AAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE4418AEBDA2004A7AAE /* InfoPlist.strings */; };
 		D0BCFE7818AEBFEB004A7AAE /* BasketBall.pck in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE7718AEBFEB004A7AAE /* BasketBall.pck */; };
 		DEADBEEF2F582BE20003B888 /* godot in Frameworks */ = {isa = PBXBuildFile; fileRef = DEADBEEF1F582BE20003B888 /* godot */; };
-		EEFC4CAF29C727AF002D4233 /* libgdsqlite.ios.template_debug.arm64.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEFC4CAE29C727AF002D4233 /* libgdsqlite.ios.template_debug.arm64.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,16 +27,6 @@
 				589384010000000000000003 /* libgdsqlite.ios.template_debug.arm64.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EEFC4CAD29C7279E002D4233 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EEFC4CAF29C727AF002D4233 /* libgdsqlite.ios.template_debug.arm64.dylib in CopyFiles */,
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -54,7 +43,6 @@
 		D0BCFE4518AEBDA2004A7AAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0BCFE7718AEBFEB004A7AAE /* BasketBall.pck */ = {isa = PBXFileReference; lastKnownFileType = file; path = BasketBall.pck; sourceTree = "<group>"; };
 		DEADBEEF1F582BE20003B888 /* godot */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = godot; path = BasketBall.xcframework; sourceTree = "<group>"; };
-		EEFC4CAE29C727AF002D4233 /* libgdsqlite.ios.template_debug.arm64.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgdsqlite.ios.template_debug.arm64.dylib; path = "BasketBall/dylibs/addons/godot-sqlite/bin/libgdsqlite.ios.template_debug.arm64.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +62,6 @@
 		D0BCFE2B18AEBDA2004A7AAE = {
 			isa = PBXGroup;
 			children = (
-				EEFC4CAE29C727AF002D4233 /* libgdsqlite.ios.template_debug.arm64.dylib */,
 				1F1575711F582BE20003B888 /* dylibs */,
 				D0BCFE7718AEBFEB004A7AAE /* BasketBall.pck */,
 				D0BCFE4118AEBDA2004A7AAE /* BasketBall */,
@@ -132,7 +119,6 @@
 				D0BCFE3118AEBDA2004A7AAE /* Frameworks */,
 				D0BCFE3218AEBDA2004A7AAE /* Resources */,
 				90A13CD024AA68E500E8464F /* Embed Frameworks */,
-				EEFC4CAD29C7279E002D4233 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -153,8 +139,6 @@
 				ORGANIZATIONNAME = GodotEngine;
 				TargetAttributes = {
 					D0BCFE3318AEBDA2004A7AAE = {
-						DevelopmentTeam = 32LH6JWN62;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 						};
 					};
@@ -271,8 +255,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -334,8 +318,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = BasketBall/BasketBall.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				CURRENT_PROJECT_VERSION = 1.0;
@@ -356,6 +339,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = space.melv.basketball;
 				PRODUCT_NAME = BasketBall;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 x86_64";
 				WRAPPER_EXTENSION = app;

@@ -4,7 +4,6 @@ class_name Database
 
 const verbosity_level : int = SQLite.VERBOSE
 
-var _sqlite = preload("res://addons/godot-sqlite/godot-sqlite.gd")
 var _connection : SQLite = null
 
 var _in_memory = not (OS.get_name() in ["iOS", "Android", "Windows", "macOS", "Linux"])
@@ -15,7 +14,13 @@ var _database_path := ":memory:" if _in_memory else (_database_folder + "/" + _d
 
 var sessions: SessionTable
 
+func _preinit():
+#	preload("res://addons/godot-sqlite/godot-sqlite.gd")
+	pass
+
 func _init():
+	_preinit()
+	
 	DirAccess.make_dir_recursive_absolute(_database_folder)
 	
 	_connection = SQLite.new()
