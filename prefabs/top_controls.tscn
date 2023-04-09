@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjtynq46dddvo"]
+
+[ext_resource type="Texture2D" uid="uid://dm4jue6orursm" path="res://assets/icons/bitcoin.png" id="1_nt4hs"]
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="2_ee5xl"]
+[ext_resource type="PackedScene" uid="uid://5cbsb11fu0hn" path="res://prefabs/text_button.tscn" id="3_7vpta"]
+
+[sub_resource type="GDScript" id="GDScript_1wo1i"]
+resource_name = "top_controls"
+script/source = "extends Control
+
+class_name TopControls
+
+signal on_menu_pressed
+
+@onready
+var menu_button = $Padding/Container/Row2/Menu
+
+func _ready():
+	menu_button.button_up.connect(_handle_on_button_pressed)
+	
+func _handle_on_button_pressed():
+	on_menu_pressed.emit()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_mxtah"]
+line_spacing = 2.08165e-12
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+
+[node name="Top Controls" type="Control"]
+custom_minimum_size = Vector2(1170, 2.08165e-12)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 426.0
+grow_horizontal = 2
+mouse_filter = 2
+script = SubResource("GDScript_1wo1i")
+
+[node name="Padding" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 141
+theme_override_constants/margin_right = 120
+
+[node name="Container" type="Control" parent="Padding"]
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="Padding/Container"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CoinIcon" type="TextureRect" parent="Padding/Container/Row1"]
+layout_mode = 2
+texture = ExtResource("1_nt4hs")
+
+[node name="Gap" type="Control" parent="Padding/Container/Row1"]
+custom_minimum_size = Vector2(30, 2.08165e-12)
+layout_mode = 2
+
+[node name="Coins" type="Label" parent="Padding/Container/Row1"]
+layout_mode = 2
+theme = ExtResource("2_ee5xl")
+theme_override_font_sizes/font_size = 60
+text = "203"
+label_settings = SubResource("LabelSettings_mxtah")
+vertical_alignment = 1
+
+[node name="Row2" type="HBoxContainer" parent="Padding/Container"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_bottom = 135.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="Menu" parent="Padding/Container/Row2" instance=ExtResource("3_7vpta")]
+layout_mode = 2

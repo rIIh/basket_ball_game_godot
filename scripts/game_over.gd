@@ -4,6 +4,9 @@ extends Control
 @export var best_score_label: Label
 @export var animation_player: AnimationPlayer
 
+@onready var last_score_template = last_score_label.text
+@onready var best_score_template = best_score_label.text
+
 var session_repository: SessionRepository
 
 func _ready():
@@ -14,6 +17,7 @@ func _ready():
 	if animation_player == null:
 		animation_player = $AnimationPlayer
 	
+	
 func handle_event(_event: EventBase):
 	if _event is GameStateChanged:
 		var event := _event as GameStateChanged
@@ -22,9 +26,8 @@ func handle_event(_event: EventBase):
 			var last_session := session_repository.get_last_session()
 			var best_session := session_repository.get_best_session()
 			
-			last_score_label.text = str(last_session.score)
-			best_score_label.text = str(best_session.score)
-			
+			last_score_label.text = last_score_template % str(last_session.score)
+			best_score_label.text = best_score_template % str(best_session.score)
 			
 			animation_player.speed_scale = 1
 			animation_player.play("show")

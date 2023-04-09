@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dc1ependdjl6p"]
+[gd_scene load_steps=16 format=3 uid="uid://dc1ependdjl6p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
@@ -6,10 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
 [ext_resource type="PackedScene" uid="uid://bikrsvotdvf3u" path="res://prefabs/score.tscn" id="6_e4m4f"]
-[ext_resource type="Texture2D" uid="uid://debpgmbkw7fdj" path="res://assets/icons/star-36px.png" id="8_aigc5"]
 [ext_resource type="Texture2D" uid="uid://6bvc214txenp" path="res://assets/other/play.png" id="9_7xvhc"]
-[ext_resource type="Texture2D" uid="uid://cqtu3dsqnitd6" path="res://assets/icons/menu-36px.png" id="11_bkjeu"]
-[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="13_a7tk2"]
+[ext_resource type="PackedScene" uid="uid://be5oumlc1n17h" path="res://scenes/menu.tscn" id="9_h2q4q"]
 [ext_resource type="PackedScene" uid="uid://csbx0w5nr2iq5" path="res://game_over.tscn" id="14_i0wn7"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
@@ -61,17 +59,6 @@ func handle_event(event: EventBase):
 		if event.next_state != GameState.initial:
 			create_tween().tween_property(self, \"scale\", Vector2.ZERO, .250).set_ease(Tween.EASE_OUT_IN)
 "
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4avug"]
-bg_color = Color(0.796078, 0.796078, 0.796078, 1)
-corner_radius_top_left = 90
-corner_radius_top_right = 90
-corner_radius_bottom_right = 90
-corner_radius_bottom_left = 90
-
-[sub_resource type="LabelSettings" id="LabelSettings_y3pvj"]
-line_spacing = 2.08165e-12
-font_size = 60
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
@@ -130,82 +117,10 @@ script = SubResource("GDScript_mokjr")
 
 [node name="Game Over" parent="." instance=ExtResource("14_i0wn7")]
 
-[node name="Top Controls" type="Control" parent="."]
-visible = false
-custom_minimum_size = Vector2(1170, 2.08165e-12)
-layout_mode = 3
-anchors_preset = 10
-anchor_right = 1.0
-offset_right = 1170.0
-offset_bottom = 426.0
-grow_horizontal = 2
-mouse_filter = 2
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Top Controls"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 150
-theme_override_constants/margin_top = 150
-theme_override_constants/margin_right = 150
-
-[node name="container" type="Control" parent="Top Controls/MarginContainer"]
-layout_mode = 2
-
-[node name="stars" type="PanelContainer" parent="Top Controls/MarginContainer/container"]
-visible = false
-custom_minimum_size = Vector2(180, 180)
-layout_mode = 2
-offset_right = 180.0
-offset_bottom = 180.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_4avug")
-
-[node name="MarginContainer" type="MarginContainer" parent="Top Controls/MarginContainer/container/stars"]
-layout_mode = 2
-theme_override_constants/margin_left = 36
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Top Controls/MarginContainer/container/stars/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="icon" type="TextureRect" parent="Top Controls/MarginContainer/container/stars/MarginContainer/HBoxContainer"]
-modulate = Color(0.972549, 0.878431, 0.290196, 1)
-layout_mode = 2
-texture = ExtResource("8_aigc5")
-stretch_mode = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Top Controls/MarginContainer/container/stars/MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 8
-
-[node name="text" type="Label" parent="Top Controls/MarginContainer/container/stars/MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("13_a7tk2")
-label_settings = SubResource("LabelSettings_y3pvj")
-
-[node name="menu" type="AspectRatioContainer" parent="Top Controls/MarginContainer/container"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -196.0
-offset_bottom = 180.0
-grow_horizontal = 0
-stretch_mode = 1
-alignment_horizontal = 2
-
-[node name="panel" type="PanelContainer" parent="Top Controls/MarginContainer/container/menu"]
-custom_minimum_size = Vector2(2.08165e-12, 180)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_4avug")
-
-[node name="icon" type="TextureRect" parent="Top Controls/MarginContainer/container/menu/panel"]
-layout_mode = 2
-texture = ExtResource("11_bkjeu")
-stretch_mode = 3
+[node name="menu" parent="CanvasLayer" instance=ExtResource("9_h2q4q")]
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]

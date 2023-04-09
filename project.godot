@@ -29,9 +29,9 @@ window/size/viewport_height=2532
 window/size/initial_position=Vector2i(-1, 1)
 window/size/window_width_override=585
 window/size/window_height_override=1266
-window/handheld/orientation=1
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [editor_plugins]
 

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkts4criiview"]
+
+[sub_resource type="GDScript" id="GDScript_uvcko"]
+script/source = "@tool
+extends BoxContainer
+
+@export
+var translation: Vector2 = Vector2.ZERO
+
+
+func _process(delta):
+	if not get_children().size():
+		return;
+		
+	var child: Control = get_child(0);
+	var size = child.size;
+	
+	child.set_position(size * translation)
+ 
+"
+
+[node name="fractional_offset" type="BoxContainer"]
+clip_contents = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = SubResource("GDScript_uvcko")
+translation = Vector2(2.08165e-12, 1)

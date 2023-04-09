@@ -52,8 +52,11 @@ func _toggle_collision_shapes(node: Node, value: bool):
 		collider.call_deferred('set_disabled', !value)
 
 func _on_counter_detector_body_entered(body):
+	print(collisions)
 	on_ball_dropped.emit(collisions)
 	Events.dispatch(BallDropped.new())
 
 func _on_ring_sides_body_entered(body):
+	print('increment collisions')
+	print(body.name)
 	collisions += 1;

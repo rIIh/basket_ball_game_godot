@@ -75,6 +75,7 @@ func _respawn(ball: Node, first_pass: bool = false):
 	ball_body = new_ball
 	
 	$basket.disable_colliders_and_front_sprite();
+	$Background.floor_layer = -1;
 	
 	if not dropped and not first_pass:
 		game_state = GameState.finished
@@ -85,6 +86,7 @@ func _respawn(ball: Node, first_pass: bool = false):
 
 func _on_basket_enable_area_entered(body):
 	$basket.enable_colliders_and_front_sprite();
+	$Background.floor_layer = 0;
 
 func _on_ball_body_input_event(viewport, event: InputEvent, shape_idx):
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:

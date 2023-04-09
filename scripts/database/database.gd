@@ -2,7 +2,7 @@ extends Object
 
 class_name Database
 
-const verbosity_level : int = SQLite.VERBOSE
+const verbosity_level : int = SQLite.QUIET
 
 var _connection : SQLite = null
 
