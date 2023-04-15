@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfmapa6spy2at"]
+
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="1_8bhgd"]
+
+[sub_resource type="GDScript" id="GDScript_8mcuy"]
+script/source = "extends Control
+
+@onready
+var fps_template = $Label.text;
+@onready
+var frame_time_template = $Label2.text;
+
+func _process(delta):
+	$Label.text = fps_template % Engine.get_frames_per_second()
+	
+	var frame_time = floorf(delta * 10000) / 10
+	$Label2.text = frame_time_template % frame_time
+"
+
+[node name="fps_counter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_8mcuy")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_8bhgd")
+theme_override_font_sizes/font_size = 96
+text = "FPS: %s"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 113.0
+offset_right = 118.0
+offset_bottom = 233.0
+theme = ExtResource("1_8bhgd")
+theme_override_font_sizes/font_size = 96
+text = "Frame Time: %sms"

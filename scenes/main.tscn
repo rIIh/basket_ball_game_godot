@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dc1ependdjl6p"]
+[gd_scene load_steps=19 format=3 uid="uid://dc1ependdjl6p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bikrsvotdvf3u" path="res://prefabs/score.tscn" id="6_e4m4f"]
 [ext_resource type="Texture2D" uid="uid://6bvc214txenp" path="res://assets/other/play.png" id="9_7xvhc"]
 [ext_resource type="PackedScene" uid="uid://be5oumlc1n17h" path="res://scenes/menu.tscn" id="9_h2q4q"]
+[ext_resource type="PackedScene" uid="uid://bfmapa6spy2at" path="res://prefabs/fps_counter.tscn" id="10_n6t4f"]
 [ext_resource type="PackedScene" uid="uid://csbx0w5nr2iq5" path="res://game_over.tscn" id="14_i0wn7"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
@@ -142,6 +143,12 @@ script = SubResource("GDScript_iqrkk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area2"]
 position = Vector2(585, 232)
 shape = SubResource("RectangleShape2D_0k6k2")
+
+[node name="fps_counter" parent="." instance=ExtResource("10_n6t4f")]
+offset_left = 19.0
+offset_top = 200.0
+offset_right = 19.0
+offset_bottom = 200.0
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
