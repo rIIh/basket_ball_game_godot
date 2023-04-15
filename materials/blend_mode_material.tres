@@ -1,6 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bly1eapabilo0"]
-
-[ext_resource type="Shader" uid="uid://dibatkmjefyc2" path="res://shaders/blend_mode_shader.tres" id="1_x0liv"]
-
-[resource]
-shader = ExtResource("1_x0liv")

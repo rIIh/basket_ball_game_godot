@@ -1,7 +1,0 @@
-[gd_resource type="SystemFont" format=3 uid="uid://cvcqftjrn8hm7"]
-
-[resource]
-font_names = PackedStringArray("Patrick Hand")
-generate_mipmaps = true
-msdf_pixel_range = 32
-oversampling = 3.0
