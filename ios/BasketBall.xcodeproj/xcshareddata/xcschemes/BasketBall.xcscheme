@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A340BDFEBCA49239A941883D"
+               BlueprintIdentifier = "D0BCFE3318AEBDA2004A7AAE"
                BuildableName = "BasketBall.app"
                BlueprintName = "BasketBall"
                ReferencedContainer = "container:BasketBall.xcodeproj">
@@ -27,22 +27,20 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0BCFE3318AEBDA2004A7AAE"
+            BuildableName = "BasketBall.app"
+            BlueprintName = "BasketBall"
+            ReferencedContainer = "container:BasketBall.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
       </Testables>
-      <MacroExpansion>
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "BasketBall.app"
-               BlueprintName = "BasketBall"
-               ReferencedContainer = "container:BasketBall.xcodeproj">
-            </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -53,18 +51,14 @@
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "BasketBall.app"
-               BlueprintName = "BasketBall"
-               ReferencedContainer = "container:BasketBall.xcodeproj">
-            </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0BCFE3318AEBDA2004A7AAE"
+            BuildableName = "BasketBall.app"
+            BlueprintName = "BasketBall"
+            ReferencedContainer = "container:BasketBall.xcodeproj">
+         </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"
@@ -74,13 +68,13 @@
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "BasketBall.app"
-               BlueprintName = "BasketBall"
-               ReferencedContainer = "container:BasketBall.xcodeproj">
-            </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D0BCFE3318AEBDA2004A7AAE"
+            BuildableName = "BasketBall.app"
+            BlueprintName = "BasketBall"
+            ReferencedContainer = "container:BasketBall.xcodeproj">
+         </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
@@ -91,4 +85,3 @@
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
-
