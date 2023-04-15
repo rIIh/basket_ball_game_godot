@@ -23,18 +23,21 @@ class AreaComponent extends PositionComponent {
 
   @override
   void render(Canvas canvas) {
-    if (kDebugMode) {
-      const double strokeWidth = 7;
-      final rect = Rect.fromLTWH(0, 0, width, height).deflate(strokeWidth / 2);
-
-      canvas.drawRect(
-        rect,
-        BasicPalette.black.withAlpha(24).paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = strokeWidth,
-      );
-    }
+    if (kDebugMode) {}
 
     super.render(canvas);
+  }
+
+  @override
+  void renderDebugMode(Canvas canvas) {
+    const double strokeWidth = 7;
+    final rect = Rect.fromLTWH(0, 0, width, height).deflate(strokeWidth / 2);
+
+    canvas.drawRect(
+      rect,
+      BasicPalette.black.withAlpha(24).paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = strokeWidth,
+    );
   }
 }

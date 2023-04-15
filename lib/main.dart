@@ -28,11 +28,20 @@ class _BasketGameWidgetState extends State<BasketGameWidget> {
 
     final fitWidth = ratio <= targetRatio;
 
-    return FittedBox(
-      child: SizedBox(
-        width: fitWidth ? kTargetSize.width : kTargetSize.height * ratio,
-        height: fitWidth ? kTargetSize.width / ratio : kTargetSize.height,
-        child: GameWidget(game: game),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: FittedBox(
+              child: SizedBox(
+                width: fitWidth ? kTargetSize.width : kTargetSize.height * ratio,
+                height: fitWidth ? kTargetSize.width / ratio : kTargetSize.height,
+                child: GameWidget(game: game),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
