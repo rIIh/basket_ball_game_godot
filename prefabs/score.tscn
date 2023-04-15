@@ -1,18 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://bikrsvotdvf3u"]
 
 [ext_resource type="Script" path="res://scripts/ui/score_label.gd" id="1_2pfyl"]
-[ext_resource type="FontFile" uid="uid://bftaq3yc03oq6" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_noqog"]
 [ext_resource type="Script" path="res://scripts/drop_indicator_trigger.gd" id="3_g7leg"]
 [ext_resource type="PackedScene" uid="uid://cywbc1v6d78og" path="res://prefabs/drop_indicator.tscn" id="4_7ydoc"]
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="4_kvq2j"]
 [ext_resource type="Texture2D" uid="uid://debpgmbkw7fdj" path="res://assets/icons/star-36px.png" id="5_sjymx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d773v"]
 line_spacing = 2.08165e-12
-font = ExtResource("2_noqog")
 font_size = 300
-font_color = Color(0.788235, 0.788235, 0.788235, 1)
-outline_size = 2
-outline_color = Color(0.788235, 0.788235, 0.788235, 1)
 
 [sub_resource type="Curve" id="Curve_apfmy"]
 max_value = 200.0
@@ -54,18 +50,20 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -59.0
+offset_top = -86.0
 offset_right = 300.0
-offset_bottom = 251.0
+offset_bottom = 278.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(301, 161)
+theme = ExtResource("4_kvq2j")
 text = "13"
 label_settings = SubResource("LabelSettings_d773v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="particles" type="CPUParticles2D" parent="."]
+visible = false
 z_index = 2
 position = Vector2(-1, 100)
 amount = 5

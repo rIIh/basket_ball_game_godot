@@ -1,17 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dn8ssl5rs6e0f"]
+[gd_scene load_steps=7 format=3 uid="uid://dn8ssl5rs6e0f"]
 
 [ext_resource type="Texture2D" uid="uid://d34cs0lk6oi5q" path="res://assets/objects/basket_back.png" id="1_x7skb"]
 [ext_resource type="Script" path="res://scripts/basket_script.gd" id="2_o4511"]
 [ext_resource type="Texture2D" uid="uid://dblyt8h1dogrr" path="res://assets/objects/basket_front.png" id="3_1acgj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_35uyr"]
-size = Vector2(37, 74)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_7aeer"]
 radius = 37.1214
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0di3"]
-size = Vector2(37, 74)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc6i4"]
 radius = 37.0135
@@ -41,22 +35,12 @@ freeze = true
 freeze_mode = 1
 
 [node name="left_collider" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(-197, 3)
-shape = SubResource("RectangleShape2D_35uyr")
-disabled = true
-
-[node name="left_collider2" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(-179, 3)
+position = Vector2(-179, 9)
 shape = SubResource("CircleShape2D_7aeer")
 disabled = true
 
 [node name="right_collider" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(203, 3)
-shape = SubResource("RectangleShape2D_c0di3")
-disabled = true
-
-[node name="right_collider2" type="CollisionShape2D" parent="ring/ring_sides"]
-position = Vector2(185, 3)
+position = Vector2(185, 9)
 shape = SubResource("CircleShape2D_rc6i4")
 disabled = true
 
@@ -85,13 +69,13 @@ freeze_mode = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(7, 4)
-polygon = PackedVector2Array(-166, 37, -139, 65, -140, 147, -125, 148, -125, 59, -156, 26)
+polygon = PackedVector2Array(-165, 41, -143, 66, -143, 146, -121, 150, -123, 57, -149, 27)
 disabled = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(0.8797, 0)
 scale = Vector2(1.00781, 1)
-polygon = PackedVector2Array(136.058, 69, 136.058, 149, 122.166, 149, 121.174, 64, 146.972, 33, 161.856, 39)
+polygon = PackedVector2Array(139.034, 71, 138.042, 150, 118.197, 155, 118.197, 63, 145.98, 30, 161.856, 44)
 disabled = true
 
 [node name="ring_sprite" type="Sprite2D" parent="."]

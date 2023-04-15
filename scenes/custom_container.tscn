@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://dklwcnji8gt2u"]
+
+[ext_resource type="Script" path="res://scripts/ui/offset_button_effect.gd" id="1_d3o4p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evu6m"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpnox"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 21
+border_width_top = 21
+border_width_right = 21
+border_width_bottom = 21
+border_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+
+[node name="custom_container" type="Control" node_paths=PackedStringArray("target")]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d3o4p")
+target = NodePath("foreground")
+
+[node name="background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 15.0
+offset_bottom = 15.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_evu6m")
+
+[node name="foreground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wpnox")

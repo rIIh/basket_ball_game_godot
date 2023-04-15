@@ -35,6 +35,7 @@ func _process(delta):
 func _after_bump():
 	var angle = randf_range(-direction_spread, direction_spread)
 	var direction = Vector2.UP.rotated(deg_to_rad(angle))
+	apply_torque(10)
 	apply_impulse(100 * direction * initial_impulse)
 	_animate_text_color()
 
@@ -43,6 +44,7 @@ func _integrate_forces(state):
 	if _reset:
 		state.linear_velocity = Vector2.ZERO
 		state.transform.origin = get_parent().global_position
+		
 		if horizontal_position_spread > 0:
 			state.transform.origin.x += randf_range(
 				-horizontal_position_spread,

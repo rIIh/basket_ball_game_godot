@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dc1ependdjl6p"]
+[gd_scene load_steps=18 format=3 uid="uid://dc1ependdjl6p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
@@ -43,8 +43,16 @@ distance = 0.01
 normal = Vector2(2.08165e-12, -1)
 distance = 0.01
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
-size = Vector2(1170, 426)
+[sub_resource type="GDScript" id="GDScript_iqrkk"]
+script/source = "extends Area2D
+
+func _process(delta):
+	var viewport_size = get_viewport_rect().size;
+	$CollisionShape2D.shape.size.x = viewport_size.x;
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlo70"]
+size = Vector2(1170, 424)
 
 [sub_resource type="GDScript" id="GDScript_mokjr"]
 script/source = "extends Sprite2D
@@ -60,6 +68,9 @@ func handle_event(event: EventBase):
 			create_tween().tween_property(self, \"scale\", Vector2.ZERO, .250).set_ease(Tween.EASE_OUT_IN)
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0k6k2"]
+size = Vector2(1170, 466)
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
 max_swipe_distance = 500.0
@@ -71,7 +82,7 @@ metadata/_edit_vertical_guides_ = [585.0]
 position = Vector2(222, 513)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
-position = Vector2(583, 2077)
+position = Vector2(583, 2128)
 angular_velocity = 2.3
 strength = 5.8
 size_duration = 0.5
@@ -95,10 +106,11 @@ position = Vector2(2.08165e-12, 3000)
 shape = SubResource("WorldBoundaryShape2D_xbv1c")
 
 [node name="basket_enable_area" type="Area2D" parent="."]
+script = SubResource("GDScript_iqrkk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area"]
-position = Vector2(585, 213)
-shape = SubResource("RectangleShape2D_0k6k2")
+position = Vector2(585, 212)
+shape = SubResource("RectangleShape2D_qlo70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(2.08165e-12, 2.08165e-12)
@@ -119,8 +131,17 @@ script = SubResource("GDScript_mokjr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 4
+visible = false
 
 [node name="menu" parent="CanvasLayer" instance=ExtResource("9_h2q4q")]
+
+[node name="basket_enable_area2" type="Area2D" parent="."]
+position = Vector2(0, 2067)
+script = SubResource("GDScript_iqrkk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area2"]
+position = Vector2(585, 232)
+shape = SubResource("RectangleShape2D_0k6k2")
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
 [connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
@@ -128,3 +149,4 @@ layer = 4
 [connection signal="mouse_exited" from="ball_body" to="." method="_on_ball_body_mouse_exited"]
 [connection signal="body_entered" from="out_area" to="." method="_on_out_area_body_entered"]
 [connection signal="body_entered" from="basket_enable_area" to="." method="_on_basket_enable_area_entered"]
+[connection signal="body_exited" from="basket_enable_area2" to="." method="_on_floor_area_exited"]

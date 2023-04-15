@@ -14,7 +14,8 @@ func _ready():
 	$particles.one_shot = true
 	$particles.emitting = false
 	
-	setup_emitters()
+	if ($particles.visible):
+		setup_emitters()
 	
 	Events.on_event.connect(handle_event)
 	$Label.text = str(Score.session.score)

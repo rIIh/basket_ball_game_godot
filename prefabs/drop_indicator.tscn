@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cywbc1v6d78og"]
 
 [ext_resource type="Script" path="res://scripts/drop_indicator.gd" id="1_3lveu"]
-[ext_resource type="FontFile" uid="uid://bftaq3yc03oq6" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_eptsw"]
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="2_t218j"]
 
 [sub_resource type="Animation" id="Animation_a4bd4"]
 resource_name = "fade_text"
@@ -40,11 +40,9 @@ offset_left = -76.0
 offset_top = -55.0
 offset_right = 74.0
 offset_bottom = 51.0
-theme_override_colors/font_color = Color(0.945098, 0.635294, 0.223529, 1)
-theme_override_colors/font_outline_color = Color(0.945098, 0.635294, 0.223529, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("2_eptsw")
-theme_override_font_sizes/font_size = 60
+theme = ExtResource("2_t218j")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 90
 text = "+1"
 horizontal_alignment = 1
 vertical_alignment = 1
