@@ -142,6 +142,7 @@ position = Vector2(585, 232)
 shape = SubResource("RectangleShape2D_0k6k2")
 
 [node name="fps_counter" parent="." instance=ExtResource("10_n6t4f")]
+visible = false
 offset_left = 19.0
 offset_top = 200.0
 offset_right = 19.0

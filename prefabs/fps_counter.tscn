@@ -11,6 +11,9 @@ var fps_template = $Label.text;
 var frame_time_template = $Label2.text;
 
 func _process(delta):
+	if not visible: 
+		return
+		
 	$Label.text = fps_template % Engine.get_frames_per_second()
 	
 	var frame_time = floorf(delta * 10000) / 10
