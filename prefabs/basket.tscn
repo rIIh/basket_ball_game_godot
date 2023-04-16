@@ -69,13 +69,13 @@ freeze_mode = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(7, 4)
-polygon = PackedVector2Array(-165, 41, -143, 66, -143, 146, -121, 150, -123, 57, -149, 27)
+polygon = PackedVector2Array(-165, 41, -143, 66, -143, 146, -130, 149, -130, 48, -149, 27)
 disabled = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(0.8797, 0)
 scale = Vector2(1.00781, 1)
-polygon = PackedVector2Array(139.034, 71, 138.042, 150, 118.197, 155, 118.197, 63, 145.98, 30, 161.856, 44)
+polygon = PackedVector2Array(139, 71, 139, 150, 128, 152, 128, 51, 146, 30, 162, 44)
 disabled = true
 
 [node name="ring_sprite" type="Sprite2D" parent="."]

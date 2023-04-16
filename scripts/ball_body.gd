@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+class_name BallBody
+
 @export var tap_to_launch = false;
 
 @export var strength: float = 7;

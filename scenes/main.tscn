@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://p7c5l4qc8ja"]
+[gd_scene load_steps=20 format=3 uid="uid://p7c5l4qc8ja"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
+[ext_resource type="Script" path="res://scripts/tools/ball_size_change_gizmo.gd" id="5_dsja0"]
 [ext_resource type="Script" path="res://scripts/center_camera.gd" id="5_ppjvj"]
 [ext_resource type="PackedScene" uid="uid://bikrsvotdvf3u" path="res://prefabs/score.tscn" id="6_e4m4f"]
 [ext_resource type="PackedScene" uid="uid://csbx0w5nr2iq5" path="res://prefabs/game_over.tscn" id="7_40hfg"]
@@ -80,14 +81,19 @@ metadata/_edit_vertical_guides_ = [585.0]
 [node name="Background" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
-position = Vector2(222, 513)
+position = Vector2(224, 513)
 
 [node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
-position = Vector2(583, 2128)
+position = Vector2(585, 2128)
 angular_velocity = 2.3
 strength = 5.8
 size_duration = 0.5
-end_size = 0.55
+end_size = 0.6
+
+[node name="BallSizeChangeGizmo" type="Node2D" parent="ball_body"]
+position = Vector2(0, -1015)
+script = ExtResource("5_dsja0")
+color = Color(1, 0, 0, 0.227451)
 
 [node name="out_area" type="Area2D" parent="."]
 input_pickable = false
