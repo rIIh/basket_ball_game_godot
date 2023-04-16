@@ -7,7 +7,7 @@ var database: Database :
 
 func _ready():
 	match OS.get_name():
-		"Windows", "UWP", "macOS", "Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD", "iOS":
+		"Windows", "UWP", "macOS", "Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
 			_database = Database.new()
 		_:
 			# TODO(melvspace): return sqlite support on ios/android when issues resolved
