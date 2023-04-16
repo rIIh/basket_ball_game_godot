@@ -16,6 +16,8 @@ func _ready():
 	
 	if animation_player == null:
 		animation_player = $AnimationPlayer
+
+	animation_player.animation_finished.connect(_scale_score)
 	
 	
 func handle_event(_event: EventBase):
@@ -32,7 +34,22 @@ func handle_event(_event: EventBase):
 			animation_player.speed_scale = 1
 			animation_player.play("show")
 			
+			if _tween:
+				_tween.kill()
+				last_score_label.scale = Vector2.ONE
+			
 		if event.next_state != GameState.finished:
 			animation_player.speed_scale = 2
 			animation_player.play_backwards()
+
+var _tween: Tween
+func _scale_score(animation: String):
+	if animation != 'show':
+		return;
 		
+	if _tween:
+		_tween.kill()
+		
+	_tween = create_tween();
+	_tween.tween_property(last_score_label, "scale", Vector2(1.2, 1.2), 0.15)
+	_tween.tween_property(last_score_label, "scale", Vector2.ONE, 0.15)

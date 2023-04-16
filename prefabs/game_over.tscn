@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://csbx0w5nr2iq5"]
 
-[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="1_04jrp"]
-[ext_resource type="Script" path="res://scripts/game_over.gd" id="2_5qqca"]
-[ext_resource type="Texture2D" uid="uid://hy33og4d4254" path="res://assets/ui/divider.png" id="2_tbk7a"]
-[ext_resource type="Script" path="res://scripts/ui/fractional_offset.gd" id="3_3vvu1"]
+[ext_resource type="Theme" uid="uid://dbdn4r12dqjyv" path="res://main_theme.tres" id="1_xdt4m"]
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="2_1h7fe"]
+[ext_resource type="Script" path="res://scripts/ui/fractional_offset.gd" id="3_gmupu"]
+[ext_resource type="Texture2D" uid="uid://bisxgjnmlykks" path="res://assets/ui/end-score-divider.png" id="4_s8b1o"]
 
 [sub_resource type="Animation" id="Animation_xjtu2"]
 length = 0.001
@@ -38,7 +38,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(465, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(292, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/3/type = "bezier"
@@ -88,7 +88,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(2.08165e-12, -0.25, 0, 0.25, 0, 585, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(2.08165e-12, -0.25, 0, 0.25, 0, 582, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
@@ -158,20 +158,15 @@ _data = {
 
 [sub_resource type="LabelSettings" id="LabelSettings_cnnx0"]
 line_spacing = 2.08165e-12
-font_size = 60
-font_color = Color(0, 0, 0, 1)
-outline_color = Color(0, 0, 0, 1)
+font_size = 90
 
 [sub_resource type="LabelSettings" id="LabelSettings_smph0"]
 line_spacing = 2.08165e-12
-font_size = 135
-font_color = Color(0, 0, 0, 1)
-outline_color = Color(0, 0, 0, 1)
+font_size = 300
 
 [sub_resource type="LabelSettings" id="LabelSettings_pgqvv"]
 line_spacing = 2.08165e-12
-font_size = 45
-font_color = Color(0, 0, 0, 1)
+font_size = 90
 
 [node name="Game Over" type="Control" node_paths=PackedStringArray("last_score_label", "best_score_label", "animation_player")]
 layout_mode = 3
@@ -179,8 +174,8 @@ anchors_preset = 0
 offset_right = 1170.0
 offset_bottom = 2532.0
 mouse_filter = 2
-theme = ExtResource("1_04jrp")
-script = ExtResource("2_5qqca")
+theme = ExtResource("1_xdt4m")
+script = ExtResource("2_1h7fe")
 last_score_label = NodePath("Center/Column/FractionalOffset2/Column/SizedBox=2/Text=Score Value")
 best_score_label = NodePath("Center/Column/FractionalOffset/SizedBox=3/Text=Best Score Value")
 animation_player = NodePath("AnimationPlayer")
@@ -204,7 +199,7 @@ grow_vertical = 2
 [node name="Column" type="VBoxContainer" parent="Center"]
 custom_minimum_size = Vector2(950, 2.08165e-12)
 layout_mode = 2
-theme_override_constants/separation = 45
+theme_override_constants/separation = 36
 alignment = 1
 
 [node name="FractionalOffset2" type="BoxContainer" parent="Center/Column"]
@@ -212,16 +207,14 @@ clip_contents = true
 layout_mode = 2
 alignment = 1
 vertical = true
-script = ExtResource("3_3vvu1")
+script = ExtResource("3_gmupu")
 translation = Vector2(2.08165e-12, 1)
-clip_content = null
 
 [node name="Column" type="VBoxContainer" parent="Center/Column/FractionalOffset2"]
 layout_mode = 2
-theme_override_constants/separation = 45
 
 [node name="SizedBox=1" type="Control" parent="Center/Column/FractionalOffset2/Column"]
-custom_minimum_size = Vector2(2.08165e-12, 68)
+custom_minimum_size = Vector2(2.08165e-12, 90)
 layout_mode = 2
 
 [node name="Text=Score Text" type="Label" parent="Center/Column/FractionalOffset2/Column/SizedBox=1"]
@@ -238,13 +231,14 @@ offset_bottom = 40.756
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
-text = "SCORE:"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "SCORE"
 label_settings = SubResource("LabelSettings_cnnx0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SizedBox=2" type="Control" parent="Center/Column/FractionalOffset2/Column"]
-custom_minimum_size = Vector2(2.08165e-12, 140)
+custom_minimum_size = Vector2(2.08165e-12, 300)
 layout_mode = 2
 
 [node name="Text=Score Value" type="Label" parent="Center/Column/FractionalOffset2/Column/SizedBox=2"]
@@ -255,12 +249,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -247.5
-offset_top = -112.244
+offset_top = -182.244
 offset_right = 247.5
-offset_bottom = 111.756
+offset_bottom = 181.756
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(247.5, 182.244)
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "%s"
 label_settings = SubResource("LabelSettings_smph0")
 horizontal_alignment = 1
@@ -268,25 +264,24 @@ vertical_alignment = 1
 
 [node name="HSeparator" type="Control" parent="Center/Column"]
 clip_contents = true
-custom_minimum_size = Vector2(585, 9)
+custom_minimum_size = Vector2(582, 21)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Control" type="Control" parent="Center/Column/HSeparator"]
 clip_contents = true
-custom_minimum_size = Vector2(2.08165e-12, 9)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 465.0
-offset_right = 465.0
-offset_bottom = 9.0
+offset_left = 292.0
+offset_right = -290.0
+offset_bottom = 21.0
 grow_horizontal = 2
 
 [node name="Divider" type="Sprite2D" parent="Center/Column/HSeparator/Control"]
 position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(1, 0.6)
-texture = ExtResource("2_tbk7a")
+texture = ExtResource("4_s8b1o")
 centered = false
 
 [node name="FractionalOffset" type="BoxContainer" parent="Center/Column"]
@@ -294,12 +289,11 @@ clip_contents = true
 layout_mode = 2
 alignment = 1
 vertical = true
-script = ExtResource("3_3vvu1")
+script = ExtResource("3_gmupu")
 translation = Vector2(2.08165e-12, -1)
-clip_content = null
 
 [node name="SizedBox=3" type="Control" parent="Center/Column/FractionalOffset"]
-custom_minimum_size = Vector2(2.08165e-12, 54)
+custom_minimum_size = Vector2(2.08165e-12, 90)
 layout_mode = 2
 
 [node name="Text=Best Score Value" type="Label" parent="Center/Column/FractionalOffset/SizedBox=3"]
@@ -316,6 +310,7 @@ offset_bottom = 70.756
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "BEST %s"
 label_settings = SubResource("LabelSettings_pgqvv")
 horizontal_alignment = 1
