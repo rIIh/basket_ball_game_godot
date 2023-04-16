@@ -21,6 +21,7 @@ Events="*res://scripts/events.gd"
 DatabaseProvider="*res://scripts/provider/database_provider.gd"
 SessionProvider="*res://scripts/provider/session_provider.gd"
 Score="*res://scripts/score.gd"
+Constant="*res://scripts/constant.gd"
 
 [display]
 

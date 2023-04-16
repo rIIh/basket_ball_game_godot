@@ -2,44 +2,16 @@
 extends Sprite2D
 
 
-## collisions are counted while ring in front of ball.
 signal on_ball_dropped(collisions: int);
 
-var collisions: int = 0;
+var collisions_records: Dictionary = {}
 
-@export var ring_is_over = false :
-	set(value):
-		_toggle(value);
-		ring_is_over = value;
+func _ready():
+	for nodes in [$ring/ring_sides, $ring/counter_detector, $ring/cloth]:
+		_toggle_collision_shapes(nodes, true)
 	
-func _set(property, value) -> bool:
-	if (property == "ring_is_over"):
-		ring_is_over = value
-		return true
-		
-	return false
 
-func _toggle(value: bool):
-	if not value:
-		collisions = 0
-	
-	var sprite := $ring_sprite as Sprite2D
-	sprite.z_index = 2 if value else 0;
-	
-	var sides = $ring/ring_sides
-	var counter = $ring/counter_detector
-	var cloth = $ring/cloth
-	
-	_toggle_collision_shapes(sides, value)
-	_toggle_collision_shapes(counter, value)
-	_toggle_collision_shapes(cloth, value)
 
-func enable_colliders_and_front_sprite():
-	ring_is_over = true;
-		
-func disable_colliders_and_front_sprite():
-	ring_is_over = false;
-	
 func _toggle_collision_shapes(node: Node, value: bool):
 	for child in node.get_children():
 		if not child is CollisionShape2D and not child is CollisionPolygon2D:
@@ -51,12 +23,16 @@ func _toggle_collision_shapes(node: Node, value: bool):
 		var collider = child;
 		collider.call_deferred('set_disabled', !value)
 
-func _on_counter_detector_body_entered(body):
-	print(collisions)
+func _on_counter_detector_body_entered(body: Node2D):
+	var id = body.get_instance_id();
+	var collisions = collisions_records[id] if collisions_records.has(id) else 0
+	
 	on_ball_dropped.emit(collisions)
 	Events.dispatch(BallDropped.new())
 
-func _on_ring_sides_body_entered(body):
-	print('increment collisions')
-	print(body.name)
-	collisions += 1;
+func _on_ring_sides_body_entered(body: Node2D):
+	var id = body.get_instance_id();
+	if collisions_records.has(id):
+		collisions_records[id] += 1
+	else:
+		collisions_records[id] = 1

@@ -5,33 +5,35 @@
 [ext_resource type="Script" path="res://scripts/ui/fractional_offset.gd" id="1_duajg"]
 [ext_resource type="Script" path="res://scripts/gameplay/arrows_animation.gd" id="1_jties"]
 
-[sub_resource type="GDScript" id="GDScript_j1oau"]
-script/source = "@tool
-extends Node2D
+[sub_resource type="GDScript" id="GDScript_gldrp"]
+script/source = "extends Control
 
-@export
-var floor_layer := -1 :
-	set(value):
-		floor_layer = value
-		_update_layers()
-		
-func _ready(): 
-	_update_layers()
-	
-
-# Editor tools
 @onready
-var _prev_floor_layer: int = floor_layer;
-func _process(delta):
-	if Engine.is_editor_hint() and _prev_floor_layer != floor_layer:
-		_update_layers()
-		_prev_floor_layer = floor_layer;
-		
+var target_size = self.size
 
-func _update_layers():
-	print('update layers')
-	$floor.layer = floor_layer - 1
-	$floor_texture.layer = floor_layer
+func _process(delta):
+	var viewport_size = get_viewport_rect().size
+	var reference_size = Vector2(1170, 2532)
+
+	var viewport_ratio = viewport_size.x / viewport_size.y;
+	var reference_ratio = reference_size.x / reference_size.y;
+
+	if viewport_ratio >= reference_ratio:
+		var difference = viewport_ratio / reference_ratio
+		size.y = target_size.y
+		
+		size.x = (viewport_size.x * difference) / 2 + target_size.x
+		position = Vector2(-(size.x - target_size.x) / 2, viewport_size.y - size.y)
+	else:
+		var difference = 1 - viewport_ratio / reference_ratio
+
+		size = Vector2(size.x, (viewport_size.y * difference) / 2 + target_size.y)
+		anchor_bottom = 1
+		position = Vector2(position.x, -(viewport_size.y - size.y))
+
+
+
+
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhvi3"]
@@ -48,32 +50,36 @@ var target_size = self.size
 func _process(delta):
 	var viewport_size = get_viewport_rect().size
 	var reference_size = Vector2(1170, 2532)
-	
+
 	var viewport_ratio = viewport_size.x / viewport_size.y;
 	var reference_ratio = reference_size.x / reference_size.y;
-	
+
 	if viewport_ratio >= reference_ratio:
+		var difference = viewport_ratio / reference_ratio
 		size.y = target_size.y
-		position = Vector2(position.x, viewport_size.y - size.y)
+		
+		size.x = (viewport_size.x * difference) / 2 + target_size.x
+		position = Vector2(-(size.x - target_size.x) / 2, viewport_size.y - size.y)
 	else:
 		var difference = 1 - viewport_ratio / reference_ratio
-			
-		size = Vector2(size.x, (viewport_size.y * difference) / 2+ target_size.y)
+
+		size = Vector2(size.x, (viewport_size.y * difference) / 2 + target_size.y)
 		anchor_bottom = 1
-		position = Vector2(position.x, viewport_size.y - size.y)
-	
-	
-	
-	
+
+
+
+
 "
 
-[node name="Background" type="Node2D"]
-script = SubResource("GDScript_j1oau")
+[node name="Background" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1170.0
+offset_bottom = 2532.0
+mouse_filter = 2
 
-[node name="background" type="CanvasLayer" parent="."]
-layer = -4
-
-[node name="background" type="ColorRect" parent="background"]
+[node name="background3" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -81,12 +87,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.286275, 0.631373, 0.894118, 1)
+script = SubResource("GDScript_gldrp")
 
-[node name="arrows" type="CanvasLayer" parent="."]
-layer = -2
-visible = false
-
-[node name="VBoxContainer" type="VBoxContainer" parent="arrows"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jties")
 
-[node name="FractionalOffset" type="BoxContainer" parent="arrows/VBoxContainer"]
+[node name="FractionalOffset" type="BoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -102,17 +106,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset"]
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset2" type="BoxContainer" parent="arrows/VBoxContainer"]
+[node name="FractionalOffset2" type="BoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -120,17 +124,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset2"]
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset2"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset2/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset2/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset3" type="BoxContainer" parent="arrows/VBoxContainer"]
+[node name="FractionalOffset3" type="BoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -138,17 +142,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset3"]
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset3"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset3/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset3/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset4" type="BoxContainer" parent="arrows/VBoxContainer"]
+[node name="FractionalOffset4" type="BoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -156,17 +160,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset4"]
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset4"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset4/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset4/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset5" type="BoxContainer" parent="arrows/VBoxContainer"]
+[node name="FractionalOffset5" type="BoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -174,17 +178,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset5"]
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset5"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset5/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset5/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset6" type="BoxContainer" parent="arrows/VBoxContainer"]
+[node name="FractionalOffset6" type="BoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -192,52 +196,51 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset6"]
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset6"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset6/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset6/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="floor" type="CanvasLayer" parent="."]
-layer = -2
-
-[node name="background2" type="Panel" parent="floor"]
+[node name="background2" type="Panel" parent="."]
+z_index = 10
 custom_minimum_size = Vector2(2.08165e-12, 471)
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -468.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhvi3")
 script = SubResource("GDScript_8jxqb")
 
-[node name="floor_texture" type="CanvasLayer" parent="."]
-layer = -1
-follow_viewport_enabled = true
-
-[node name="BoxContainer" type="BoxContainer" parent="floor_texture"]
-offset_right = 1170.0
-offset_bottom = 2532.0
+[node name="BoxContainer" type="BoxContainer" parent="."]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 2
 vertical = true
 
-[node name="BoxContainer" type="BoxContainer" parent="floor_texture/BoxContainer"]
+[node name="BoxContainer" type="BoxContainer" parent="BoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 471)
 layout_mode = 2
 vertical = true
 
-[node name="CenterContainer" type="CenterContainer" parent="floor_texture/BoxContainer/BoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="BoxContainer/BoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="floor_texture/BoxContainer/BoxContainer/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="BoxContainer/BoxContainer/CenterContainer"]
 layout_mode = 2
 texture = ExtResource("1_7fq55")
 stretch_mode = 3

@@ -29,6 +29,7 @@ position = Vector2(585, 1412)
 script = ExtResource("1_2pfyl")
 
 [node name="Drop Inidicator Point" type="Control" parent="."]
+z_index = 4
 layout_mode = 3
 anchors_preset = 0
 offset_left = 2.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://p7c5l4qc8ja"]
+[gd_scene load_steps=21 format=3 uid="uid://p7c5l4qc8ja"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://6bvc214txenp" path="res://assets/other/play.png" id="9_7xvhc"]
 [ext_resource type="PackedScene" uid="uid://be5oumlc1n17h" path="res://scenes/menu.tscn" id="9_h2q4q"]
 [ext_resource type="PackedScene" uid="uid://bfmapa6spy2at" path="res://prefabs/fps_counter.tscn" id="10_n6t4f"]
+[ext_resource type="Script" path="res://scripts/gameplay/ball_spawner.gd" id="12_raect"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
 script/source = "extends Area2D
@@ -54,7 +55,7 @@ func _process(delta):
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlo70"]
-size = Vector2(1170, 424)
+size = Vector2(1103, 424)
 
 [sub_resource type="GDScript" id="GDScript_mokjr"]
 script/source = "extends Sprite2D
@@ -75,25 +76,12 @@ size = Vector2(1170, 466)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_kc5ag")
-max_swipe_distance = 500.0
 metadata/_edit_vertical_guides_ = [585.0]
 
 [node name="Background" parent="." instance=ExtResource("3_gh8tq")]
 
 [node name="basket" parent="." instance=ExtResource("2_qt8m1")]
 position = Vector2(224, 513)
-
-[node name="ball_body" parent="." instance=ExtResource("3_64ghb")]
-position = Vector2(585, 2128)
-angular_velocity = 2.3
-strength = 5.8
-size_duration = 0.5
-end_size = 0.6
-
-[node name="BallSizeChangeGizmo" type="Node2D" parent="ball_body"]
-position = Vector2(0, -1015)
-script = ExtResource("5_dsja0")
-color = Color(1, 0, 0, 0.227451)
 
 [node name="out_area" type="Area2D" parent="."]
 input_pickable = false
@@ -112,17 +100,45 @@ shape = SubResource("WorldBoundaryShape2D_nqnjf")
 position = Vector2(2.08165e-12, 3000)
 shape = SubResource("WorldBoundaryShape2D_xbv1c")
 
-[node name="basket_enable_area" type="Area2D" parent="."]
+[node name="basket_area" type="Area2D" parent="."]
 script = SubResource("GDScript_iqrkk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area"]
-position = Vector2(585, 212)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="basket_area"]
+position = Vector2(584.5, 212)
 shape = SubResource("RectangleShape2D_qlo70")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 script = ExtResource("5_ppjvj")
+
+[node name="BallSpawner" type="Node2D" parent="."]
+script = ExtResource("12_raect")
+ball_body_template_path = NodePath("BallAnchor")
+spawn_anchor = NodePath("SpawnAnchor")
+distance = 720.0
+
+[node name="SpawnAnchor" type="Node2D" parent="BallSpawner"]
+position = Vector2(585, 2297)
+
+[node name="BallAnchor" type="Node2D" parent="BallSpawner"]
+process_mode = 4
+position = Vector2(585, 2297)
+
+[node name="ball_body_template" parent="BallSpawner/BallAnchor" instance=ExtResource("3_64ghb")]
+z_index = 12
+position = Vector2(0, -196)
+collision_layer = 1
+collision_mask = 1
+angular_velocity = 2.3
+strength = 5.8
+size_duration = 0.5
+end_size = 0.6
+
+[node name="BallSizeChangeGizmo" type="Node2D" parent="BallSpawner/BallAnchor/ball_body_template"]
+position = Vector2(0, -1015)
+script = ExtResource("5_dsja0")
+color = Color(1, 0, 0, 0.227451)
 
 [node name="Score" parent="." instance=ExtResource("6_e4m4f")]
 
@@ -139,11 +155,12 @@ script = SubResource("GDScript_mokjr")
 [node name="CanvasLayer@menu" parent="." instance=ExtResource("9_h2q4q")]
 visible = false
 
-[node name="basket_enable_area2" type="Area2D" parent="."]
+[node name="floor_area" type="Area2D" parent="."]
+z_index = 10
 position = Vector2(0, 2067)
 script = SubResource("GDScript_iqrkk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="basket_enable_area2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor_area"]
 position = Vector2(585, 232)
 shape = SubResource("RectangleShape2D_0k6k2")
 
@@ -155,9 +172,12 @@ offset_right = 19.0
 offset_bottom = 200.0
 
 [connection signal="on_ball_dropped" from="basket" to="." method="_on_basket_on_ball_dropped"]
-[connection signal="input_event" from="ball_body" to="." method="_on_ball_body_input_event"]
-[connection signal="mouse_entered" from="ball_body" to="." method="_on_ball_body_mouse_entered"]
-[connection signal="mouse_exited" from="ball_body" to="." method="_on_ball_body_mouse_exited"]
 [connection signal="body_entered" from="out_area" to="." method="_on_out_area_body_entered"]
-[connection signal="body_entered" from="basket_enable_area" to="." method="_on_basket_enable_area_entered"]
-[connection signal="body_exited" from="basket_enable_area2" to="." method="_on_floor_area_exited"]
+[connection signal="body_entered" from="basket_area" to="." method="_on_basket_enable_area_entered"]
+[connection signal="input_event" from="BallSpawner/BallAnchor/ball_body_template" to="." method="_on_ball_body_input_event"]
+[connection signal="input_event" from="BallSpawner/BallAnchor/ball_body_template" to="BallSpawner/BallAnchor/ball_body_template" method="_on_ball_body_input_event"]
+[connection signal="mouse_entered" from="BallSpawner/BallAnchor/ball_body_template" to="." method="_on_ball_body_mouse_entered"]
+[connection signal="mouse_entered" from="BallSpawner/BallAnchor/ball_body_template" to="BallSpawner/BallAnchor/ball_body_template" method="_on_ball_body_mouse_entered"]
+[connection signal="mouse_exited" from="BallSpawner/BallAnchor/ball_body_template" to="." method="_on_ball_body_mouse_exited"]
+[connection signal="mouse_exited" from="BallSpawner/BallAnchor/ball_body_template" to="BallSpawner/BallAnchor/ball_body_template" method="_on_ball_body_mouse_exited"]
+[connection signal="body_exited" from="floor_area" to="." method="_on_floor_area_exited"]
