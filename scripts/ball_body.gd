@@ -47,12 +47,6 @@ func _process(delta):
 		update_scale();
 		
 		
-func _integrate_forces(state):
-	if freeze:
-		pass
-#		print(state.transform.origin)
-#		state.transform.origin = position
-	
 func update_scale():
 	var time = flying_time / size_duration;
 	time = clamp(time, 0, 1);
@@ -69,6 +63,7 @@ func update_scale():
 		time
 	);
 	
+
 func enable():
 	visible = true;
 	process_mode = Node.PROCESS_MODE_INHERIT

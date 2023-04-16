@@ -41,10 +41,11 @@ func _draw():
 			draw_line(node.position, node.position + Vector2.RIGHT * distance / 2, Color.RED, 4, true)
 			draw_line(node.position, node.position + Vector2.LEFT * distance / 2, Color.RED, 4, true)
 
-func spawn() -> BallBody:
+func spawn(alignment: float = 0) -> BallBody:
 	var node: BallBody = _get_ball_body(ball_body_template).duplicate()
 	node.visible = true
 	node.position += ball_body_template.position
+	node.position.x += distance / 2 * alignment
 	get_parent().add_child(node)
 	
 	return node

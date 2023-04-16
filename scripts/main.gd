@@ -21,7 +21,7 @@ func _on_out_area_body_entered(body):
 	_respawn();
 
 func _respawn(first_pass: bool = false):
-	var ball: BallBody = ball_spawner.spawn()
+	var ball: BallBody = ball_spawner.spawn(randf_range(-1, 1))
 	ball.ball_interacted.connect(func(): game_state = GameState.playing)
 	
 #   Many balls chain spawn
