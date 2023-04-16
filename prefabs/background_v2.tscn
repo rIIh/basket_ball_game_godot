@@ -34,7 +34,7 @@ func _update_layers():
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhvi3"]
 bg_color = Color(0.960784, 0.764706, 0.278431, 1)
 border_width_top = 21
-border_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 
 [sub_resource type="GDScript" id="GDScript_8jxqb"]
 script/source = "extends Panel

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/offset_button_effect.gd" id="1_d3o4p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evu6m"]
-bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 corner_radius_top_left = 45
 corner_radius_top_right = 45
 corner_radius_bottom_right = 45
@@ -15,13 +15,14 @@ border_width_left = 21
 border_width_top = 21
 border_width_right = 21
 border_width_bottom = 21
-border_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 corner_radius_top_left = 45
 corner_radius_top_right = 45
 corner_radius_bottom_right = 45
 corner_radius_bottom_left = 45
 
 [node name="custom_container" type="Control" node_paths=PackedStringArray("target")]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
