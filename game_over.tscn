@@ -214,6 +214,7 @@ alignment = 1
 vertical = true
 script = ExtResource("3_3vvu1")
 translation = Vector2(2.08165e-12, 1)
+clip_content = null
 
 [node name="Column" type="VBoxContainer" parent="Center/Column/FractionalOffset2"]
 layout_mode = 2
@@ -295,6 +296,7 @@ alignment = 1
 vertical = true
 script = ExtResource("3_3vvu1")
 translation = Vector2(2.08165e-12, -1)
+clip_content = null
 
 [node name="SizedBox=3" type="Control" parent="Center/Column/FractionalOffset"]
 custom_minimum_size = Vector2(2.08165e-12, 54)

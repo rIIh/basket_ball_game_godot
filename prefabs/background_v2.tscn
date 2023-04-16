@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqab0kxve52ov"]
+[gd_scene load_steps=8 format=3 uid="uid://cqab0kxve52ov"]
 
 [ext_resource type="Texture2D" uid="uid://q403tvrypend" path="res://assets/static/floor-pattern.png" id="1_7fq55"]
+[ext_resource type="Texture2D" uid="uid://ct6x7j3i8gnct" path="res://assets/static/background-arrow.png" id="1_78gyu"]
+[ext_resource type="Script" path="res://scripts/ui/fractional_offset.gd" id="1_duajg"]
+[ext_resource type="Script" path="res://scripts/gameplay/arrows_animation.gd" id="1_jties"]
 
 [sub_resource type="GDScript" id="GDScript_j1oau"]
 script/source = "@tool
@@ -78,6 +81,126 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.286275, 0.631373, 0.894118, 1)
+
+[node name="arrows" type="CanvasLayer" parent="."]
+layer = -2
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="arrows"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jties")
+
+[node name="FractionalOffset" type="BoxContainer" parent="arrows/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset2" type="BoxContainer" parent="arrows/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset2"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset2/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset3" type="BoxContainer" parent="arrows/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset3"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset3/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset4" type="BoxContainer" parent="arrows/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset4"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset4/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset5" type="BoxContainer" parent="arrows/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset5"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset5/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset6" type="BoxContainer" parent="arrows/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="arrows/VBoxContainer/FractionalOffset6"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="arrows/VBoxContainer/FractionalOffset6/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
 
 [node name="floor" type="CanvasLayer" parent="."]
 layer = -2

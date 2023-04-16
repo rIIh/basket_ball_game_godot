@@ -6,8 +6,14 @@ class_name FractionalOffset
 @export
 var translation: Vector2 = Vector2.ZERO
 
+@export
+var clip_content = true
+
 func _ready():
-	clip_contents = true;
+	if clip_content == null:
+		clip_content = true
+		
+	clip_contents = clip_content;
 
 func _process(delta):
 	if not get_children().size():
@@ -17,4 +23,6 @@ func _process(delta):
 	var size = child.size;
 	
 	child.set_position(size * translation)
+	
+	clip_contents = clip_content;
  
