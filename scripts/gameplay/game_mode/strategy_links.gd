@@ -13,9 +13,9 @@ var links: Array :
 func _init(initial_links: Dictionary = {}):
 	_links = initial_links
 
-func get_connected_strategies(index: int) -> Array[int]:
+func get_connected_strategies(index: int):
 	if not _links.has(index):
-		_links[index] = [] as Array[int]
+		_links[index] = []
 		
 	return _links.get(index)
 
