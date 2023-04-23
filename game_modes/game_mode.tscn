@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bi1627xohky20"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/game_mode.gd" id="1_okcc6"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/strategy_links.gd" id="2_nxgll"]
+[ext_resource type="Script" path="res://scripts/gameplay/score_strategy/basic_score_strategy.gd" id="3_jfcd2"]
+[ext_resource type="Script" path="res://scripts/gameplay/score_strategy/triple_score_strategy.gd" id="4_c02o5"]
+
+[sub_resource type="Resource" id="Resource_55aqj"]
+script = ExtResource("2_nxgll")
+_links = {
+0: Array[int]([]),
+1: Array[int]([2]),
+2: Array[int]([])
+}
+
+[sub_resource type="Resource" id="Resource_qxkbe"]
+script = ExtResource("2_nxgll")
+_links = {
+0: Array[int]([]),
+1: Array[int]([]),
+2: Array[int]([])
+}
+
+[sub_resource type="Resource" id="Resource_8fhwr"]
+script = ExtResource("2_nxgll")
+_links = {
+0: Array[int]([1]),
+1: Array[int]([]),
+2: Array[int]([])
+}
+
+[node name="GameMode" type="Node"]
+script = ExtResource("1_okcc6")
+links_next = SubResource("Resource_55aqj")
+links_break = SubResource("Resource_qxkbe")
+links_check = SubResource("Resource_8fhwr")
+
+[node name="BasicScoreStrategy" type="Node" parent="."]
+script = ExtResource("3_jfcd2")
+
+[node name="TripleScoreStrategy" type="Node" parent="."]
+script = ExtResource("4_c02o5")
+arrows_animation_speed = 2.0
+
+[node name="TripleScoreStrategy2" type="Node" parent="."]
+script = ExtResource("4_c02o5")
+arrows_animation_speed = 4.0

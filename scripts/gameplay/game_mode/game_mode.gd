@@ -1,5 +1,5 @@
 @tool
-extends Resource
+extends Node
 
 class_name GameMode
 
@@ -12,48 +12,67 @@ signal on_strategy_enter(strategy: ScoreStrategy)
 
 signal on_complete
 
-# Dependencies
+# Configuration
 
-var ball_spawner: BallSpawner :
-	set(value):
-		if value != ball_spawner:
-			if ball_spawner:
-				ball_spawner.on_ball_spawned.disconnect(_broadcast_ball_spawned)
-			if value:
-				value.on_ball_spawned.connect(_broadcast_ball_spawned)
-				
-		ball_spawner = value
+@export
+var links_next := StrategyLinks.new()
 
-func _broadcast_ball_spawned(ball: BallBody):
-#	ball.ball_pushed.connect(func(): handle_ball_launched(ball))
-	ball.ball_dropped.connect(func(): handle_ball_dropped(ball))
-	on_ball_spawned.emit(ball)
+@export
+var links_break := StrategyLinks.new()
+
+@export
+var links_check := StrategyLinks.new()
+
+func get_strategies() -> Array[ScoreStrategy]:
+	var strategies: Array[ScoreStrategy] = []
+	for child in get_children():
+		if child is ScoreStrategy:
+			strategies.append(child)
+
+	return strategies
+
+func get_strategy(index: int) -> ScoreStrategy:
+	return get_strategies()[index]
 
 # State
 
 var _previous_strategy: ScoreStrategy
 var _active_strategy: ScoreStrategy
+var active: bool = false
+
+
+# Godot Lifecycle
+
+@export
+var ball_spawner: BallSpawner
+
+
+func _ready():
+	if not Engine.is_editor_hint():
+		ball_spawner.on_ball_spawned.connect(_broadcast_ball_spawned)
+	
+	for child in get_children():
+		if child is ScoreStrategy:
+			child.game_mode = self
+	
+func _broadcast_ball_spawned(ball: BallBody):
+	if active:
+	#	ball.ball_pushed.connect(func(): handle_ball_launched(ball))
+		ball.ball_dropped.connect(func(): handle_ball_dropped(ball))
+		on_ball_spawned.emit(ball)
 
 
 # Game events
 
 func start():
-	for strategy in _strategies:
-		strategy.ball_spawner = ball_spawner
-		
-	_active_strategy = _get_initial_strategy()
+	active = true
+	var initial_strategy = _get_initial_strategy()
+	if active and _active_strategy:
+		_active_strategy.exit(initial_strategy)
+			
+	_active_strategy = initial_strategy
 	_active_strategy.start()
 
-#func handle_ball_spawned(ball: BallBody):
-#	var strategy = _active_strategy
-#	var desire = strategy.handle_ball_spawned(ball, Score.session)
-#	_handle_desire(strategy, desire)
-	
-#func handle_ball_launched(ball: BallBody):
-#	var strategy = _active_strategy
-#	var desire = strategy.handle_ball_launched(ball, Score.session)
-#	_handle_desire(strategy, desire)
-	
 func handle_ball_dropped(ball: BallBody):
 	var strategy = _active_strategy
 	var desire = strategy.handle_ball_dropped(ball, Score.session)
@@ -70,10 +89,16 @@ func _handle_desire(strategy, desire: int):
 
 	match(desire):
 		StrategyDesire.Values.BREAK:
-			var expectant = links_break.get_connected_strategies(strategy)[0]
+			var expectant_index = links_break.get_connected_strategies(
+				get_strategy_index(strategy)
+			)[0]
+			var expectant = get_strategy(expectant_index)
 			_goto(expectant)
 		StrategyDesire.Values.NEXT:
-			var expectant = links_next.get_connected_strategies(strategy)[0]
+			var expectant_index = links_next.get_connected_strategies(
+				get_strategy_index(strategy)
+			)[0]
+			var expectant = get_strategy(expectant_index)
 			_goto(expectant)
 		StrategyDesire.Values.PREVIOUS:
 			_goto(_previous_strategy)
@@ -81,12 +106,24 @@ func _handle_desire(strategy, desire: int):
 			_goto(_get_initial_strategy())
 			on_complete.emit()
 		StrategyDesire.Values.NONE:
-			var expectants = links_check.get_connected_strategies(strategy)
-			for expectant in expectants:
+			var expectants = links_check.get_connected_strategies(
+				get_strategy_index(strategy)
+			)
+			for expectant_index in expectants:
+				var expectant = get_strategy(expectant_index)
 				if expectant.check_should_enter(strategy):
 					_goto(expectant)
 					break
 
+
+func get_strategy_index(strategy: ScoreStrategy):
+	var index = 0
+	for r_strategy in get_strategies():
+		if strategy == r_strategy:
+			return index
+		index += 1
+		
+	return -1
 
 # Game tools
 
@@ -94,7 +131,8 @@ func _get_initial_strategy() -> ScoreStrategy:
 	if Engine.is_editor_hint():
 		return null
 		
-	for strategy in _strategies:
+	var strategies = get_strategies()
+	for strategy in strategies:
 		var check = func(links: Array[ScoreStrategy]): 
 			return strategy in links
 		
@@ -104,7 +142,7 @@ func _get_initial_strategy() -> ScoreStrategy:
 		else:
 			return strategy
 			
-	return _strategies[0]
+	return strategies[0]
 
 func _goto(strategy: ScoreStrategy):
 	if Engine.is_editor_hint():
@@ -126,34 +164,17 @@ func reset():
 	_goto(_get_initial_strategy())
 
 
-# Configuration
-
-@export
-var _strategies: Array[ScoreStrategy] = []
-
-@export
-var links_next := StrategyLinks.new()
-
-@export
-var links_break := StrategyLinks.new()
-
-@export
-var links_check := StrategyLinks.new()
-
-
 # Editor tools
 
-func get_strategies() -> Array[ScoreStrategy]:
-	return _strategies
-
-
 func add_strategy(strategy: ScoreStrategy):
-	if strategy and not strategy in _strategies:
-		_strategies.append(strategy)
+	if strategy and not strategy in get_strategies():
+		if strategy.is_inside_tree():
+			add_child(strategy.duplicate())
+		else:
+			add_child(strategy)
 
 
-func _clear():
-	_strategies.clear()
+func _clear_connections():
 	links_next.clear()
 	links_break.clear()
 	links_check.clear()

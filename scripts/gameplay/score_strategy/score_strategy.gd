@@ -1,9 +1,9 @@
 @tool
-extends Resource
+extends Node
 
 class_name ScoreStrategy
 
-var ball_spawner: BallSpawner
+var game_mode: GameMode
 
 func check_should_enter(active_strategy: ScoreStrategy) -> bool:
 	return false
@@ -14,12 +14,6 @@ func start():
 func enter(from: ScoreStrategy = null):
 	pass
 
-#func handle_ball_spawned(ball: BallBody, state: Session) -> StrategyDesire:
-#	return StrategyDesire.NONE
-#
-#func handle_ball_launched(ball: BallBody, state: Session) -> StrategyDesire:
-#	return StrategyDesire.NONE
-	
 func handle_ball_dropped(ball: BallBody, state: Session) -> StrategyDesire.Values:
 	return StrategyDesire.NONE
 	

@@ -10,9 +10,7 @@ var arrows_animation_speed = 1.0
 var modulation = 1.0
 
 @export
-var background_path: NodePath
-var background: BackgroundNode :
-	get: return get_local_scene().get_node(background_path)
+var background: BackgroundNode
 
 var _drops = 0
 

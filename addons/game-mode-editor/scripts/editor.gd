@@ -28,6 +28,7 @@ func can_edit_game_mode(node: GameMode):
 
 func edit_game_mode(node: GameMode):
 	selected_game_mode = node
+	print(selected_game_mode)
 	_rebuild_nodes()
 #	_rebuild_nodes_menu()
 	
@@ -35,19 +36,23 @@ func _handle_connection_request(from_node: StringName, from_port: int, to_node: 
 	var from_node_value = _get_node_by_name(from_node)
 	var to_node_value = _get_node_by_name(to_node)
 	
+	
 	if not from_node_value or not to_node_value:
 		return
+	
+	var from_strategy_index = selected_game_mode.get_strategy_index(from_node_value.strategy)
+	var to_strategy_index = selected_game_mode.get_strategy_index(to_node_value.strategy)
 	
 	match from_port:
 		StrategyNode.StrategySlot.NEXT:
 			_graph.connect_node(from_node, from_port, to_node, to_port)
-			selected_game_mode.links_next.add_connection(from_node_value.strategy, to_node_value.strategy)
+			selected_game_mode.links_next.add_connection(from_strategy_index, to_strategy_index)
 		StrategyNode.StrategySlot.BREAK:
 			_graph.connect_node(from_node, from_port, to_node, to_port)
-			selected_game_mode.links_break.add_connection(from_node_value.strategy, to_node_value.strategy)
+			selected_game_mode.links_break.add_connection(from_strategy_index, to_strategy_index)
 		StrategyNode.StrategySlot.CHECK:
 			_graph.connect_node(from_node, from_port, to_node, to_port)
-			selected_game_mode.links_check.add_connection(from_node_value.strategy, to_node_value.strategy)
+			selected_game_mode.links_check.add_connection(from_strategy_index, to_strategy_index)
 
 
 func _handle_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int):
@@ -57,16 +62,19 @@ func _handle_disconnection_request(from_node: StringName, from_port: int, to_nod
 	if not from_node_value or not to_node_value:
 		return
 	
+	var from_strategy_index = selected_game_mode.get_strategy_index(from_node_value.strategy)
+	var to_strategy_index = selected_game_mode.get_strategy_index(to_node_value.strategy)
+	
 	match from_port:
 		StrategyNode.StrategySlot.NEXT:
 			_graph.disconnect_node(from_node, from_port, to_node, to_port)
-			selected_game_mode.links_next.remove_connection(from_node_value.strategy, to_node_value.strategy)
+			selected_game_mode.links_next.remove_connection(from_strategy_index, to_strategy_index)
 		StrategyNode.StrategySlot.BREAK:
 			_graph.disconnect_node(from_node, from_port, to_node, to_port)
-			selected_game_mode.links_break.remove_connection(from_node_value.strategy, to_node_value.strategy)
+			selected_game_mode.links_break.remove_connection(from_strategy_index, to_strategy_index)
 		StrategyNode.StrategySlot.CHECK:
 			_graph.disconnect_node(from_node, from_port, to_node, to_port)
-			selected_game_mode.links_check.remove_connection(from_node_value.strategy, to_node_value.strategy)
+			selected_game_mode.links_check.remove_connection(from_strategy_index, to_strategy_index)
 
 func _get_node(strategy: ScoreStrategy) -> StrategyNode:
 	return nodes[strategy]
@@ -105,8 +113,12 @@ func _rebuild_nodes():
 				var links: StrategyLinks = typed_links[0]
 				var slot: int = typed_links[1]
 				
-				var linked_strategies = links.get_connected_strategies(strategy)
-				for to_strategy in linked_strategies:
+				var linked_strategies = links.get_connected_strategies(
+					selected_game_mode.get_strategy_index(strategy)
+				)
+				
+				for to_strategy_index in linked_strategies:
+					var to_strategy = selected_game_mode.get_strategy(to_strategy_index)
 					var target = _get_node(to_strategy)
 					_graph.connect_node(
 						node.name, slot,
