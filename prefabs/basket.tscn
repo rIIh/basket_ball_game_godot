@@ -47,12 +47,10 @@ freeze_mode = 1
 [node name="left_collider" type="CollisionShape2D" parent="ring/ring_sides"]
 position = Vector2(-179, 9)
 shape = SubResource("CircleShape2D_7aeer")
-disabled = true
 
 [node name="right_collider" type="CollisionShape2D" parent="ring/ring_sides"]
 position = Vector2(185, 9)
 shape = SubResource("CircleShape2D_rc6i4")
-disabled = true
 
 [node name="counter_detector" type="Area2D" parent="ring"]
 position = Vector2(6, 23)
@@ -63,7 +61,6 @@ collision_mask = 8
 position = Vector2(-2, 11)
 build_mode = 1
 polygon = PackedVector2Array(-152, 3, -123, 97, -5, 76, 121, 105, 152, 4, 118, 76, -4, 48, -122, 67)
-disabled = true
 
 [node name="line" type="CollisionShape2D" parent="ring/counter_detector"]
 position = Vector2(-7, 143)
@@ -82,13 +79,11 @@ freeze_mode = 1
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(7, 4)
 polygon = PackedVector2Array(-165, 41, -143, 66, -143, 146, -130, 149, -130, 48, -149, 27)
-disabled = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="ring/cloth"]
 position = Vector2(0.8797, 0)
 scale = Vector2(1.00781, 1)
 polygon = PackedVector2Array(139, 71, 139, 150, 128, 152, 128, 51, 146, 30, 162, 44)
-disabled = true
 
 [connection signal="body_entered" from="ring/ring_sides" to="." method="_on_ring_sides_body_entered"]
 [connection signal="body_entered" from="ring/counter_detector" to="." method="_on_counter_detector_body_entered"]

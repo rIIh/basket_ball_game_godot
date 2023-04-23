@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcf72qci2fswd"]
+
+[ext_resource type="Script" path="res://addons/game-mode-editor/scripts/editor.gd" id="1_eebuu"]
+[ext_resource type="PackedScene" uid="uid://ceqqvat5s15v2" path="res://addons/game-mode-editor/scenes/strategy_node.tscn" id="2_no0mi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l40hq"]
+
+[node name="Editor" type="Control"]
+custom_minimum_size = Vector2(256, 512)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eebuu")
+editor_tab_bg = SubResource("StyleBoxFlat_l40hq")
+strategy_node = ExtResource("2_no0mi")
+
+[node name="Column" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Row" type="HBoxContainer" parent="Column"]
+visible = false
+layout_mode = 2
+
+[node name="AddNodeButton" type="MenuButton" parent="Column/Row"]
+layout_mode = 2
+text = "Add Node"
+
+[node name="GraphEdit" type="GraphEdit" parent="Column"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_vertical = 3
+right_disconnects = true
+connection_lines_curvature = 0.1

@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="GameMode" load_steps=11 format=3 uid="uid://dirm0g43bsglt"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/game_mode.gd" id="1_uggay"]
+[ext_resource type="Script" path="res://scripts/gameplay/score_strategy/basic_score_strategy.gd" id="1_ytj3a"]
+[ext_resource type="Script" path="res://scripts/gameplay/score_strategy/triple_score_strategy.gd" id="2_636c6"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/strategy_links.gd" id="3_ir37k"]
+
+[sub_resource type="Resource" id="Resource_oapu3"]
+script = ExtResource("1_ytj3a")
+
+[sub_resource type="Resource" id="Resource_uiv5o"]
+script = ExtResource("2_636c6")
+arrows_animation_speed = 2.0
+metadata/_editor_prop_ptr_background = NodePath("Background")
+
+[sub_resource type="Resource" id="Resource_hww7s"]
+script = ExtResource("2_636c6")
+arrows_animation_speed = 4.0
+metadata/_editor_prop_ptr_background = NodePath("Background")
+
+[sub_resource type="Resource" id="Resource_v043l"]
+script = ExtResource("3_ir37k")
+_links = {
+SubResource("Resource_oapu3"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([]),
+SubResource("Resource_uiv5o"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([SubResource("Resource_oapu3")]),
+SubResource("Resource_hww7s"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([SubResource("Resource_oapu3")])
+}
+
+[sub_resource type="Resource" id="Resource_0l0c0"]
+script = ExtResource("3_ir37k")
+_links = {
+SubResource("Resource_oapu3"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([SubResource("Resource_uiv5o")]),
+SubResource("Resource_uiv5o"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([]),
+SubResource("Resource_hww7s"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([])
+}
+
+[sub_resource type="Resource" id="Resource_8xxrf"]
+script = ExtResource("3_ir37k")
+_links = {
+SubResource("Resource_oapu3"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([]),
+SubResource("Resource_uiv5o"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([SubResource("Resource_hww7s")]),
+SubResource("Resource_hww7s"): Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([])
+}
+
+[resource]
+script = ExtResource("1_uggay")
+_strategies = Array[Resource("res://scripts/gameplay/score_strategy/score_strategy.gd")]([SubResource("Resource_oapu3"), SubResource("Resource_uiv5o"), SubResource("Resource_hww7s")])
+links_next = SubResource("Resource_8xxrf")
+links_break = SubResource("Resource_v043l")
+links_check = SubResource("Resource_0l0c0")

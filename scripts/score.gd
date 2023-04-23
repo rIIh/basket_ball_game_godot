@@ -4,14 +4,17 @@ extends Node
 var _repository: SessionRepository = SessionProvider.repository
 
 var session: Session
+var score: int :
+	get: return session.score
 
 func _ready():
 	session = _repository.get_last_session_or_new()
 
 
-func increment(has_collisions: bool):
+func increment(addendum: int):
 	var prev_score = session.score
-	session.increment(1 if has_collisions else 2)
+	
+	session.increment(addendum)
 	_repository.update_session(session)
 	Events.dispatch(ScoreChanged.increment(prev_score, session.score))
 
@@ -24,4 +27,3 @@ func reset():
 	
 	Events.dispatch(ScoreChanged.reset(prev_score))
 	
-

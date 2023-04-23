@@ -22,6 +22,7 @@ DatabaseProvider="*res://scripts/provider/database_provider.gd"
 SessionProvider="*res://scripts/provider/session_provider.gd"
 Score="*res://scripts/score.gd"
 Constant="*res://scripts/constant.gd"
+StrategyDesire="*res://scripts/gameplay/score_strategy/enum/strategy_desire.gd"
 
 [display]
 
@@ -36,7 +37,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg", "res://addons/plugin_refresher/plugin.cfg")
 
 [gui]
 

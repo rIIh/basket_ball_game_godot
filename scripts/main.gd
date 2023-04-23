@@ -1,9 +1,10 @@
 extends Node2D
 
+@export
+var game_mode: GameMode
+
 @onready
 var ball_spawner : BallSpawner = $BallSpawner
-
-var dropped := false;
 
 var game_state: int = GameState.initial : 
 	set(value):
@@ -13,32 +14,26 @@ var game_state: int = GameState.initial :
 			
 
 func _ready():
-	_respawn(true)
+	game_mode.ball_spawner = ball_spawner
+	game_mode.on_ball_spawned.connect(_handle_ball_spawned)
+	game_mode.on_complete.connect(_handle_complete)
+	game_mode.start()
+
+
+func _handle_ball_spawned(ball: BallBody):
+	ball.ball_interacted.connect(func(): game_state = GameState.playing)
+	
+func _handle_complete():
+	game_state = GameState.finished
+	Score.reset()
 	
 
 func _on_out_area_body_entered(body):
-	body.queue_free()
-	_respawn();
+	if body is BallBody and game_mode:
+		game_mode.handle_ball_destroyed(body)
 
-func _respawn(first_pass: bool = false):
-	var ball: BallBody = ball_spawner.spawn(randf_range(-1, 1))
-	ball.ball_interacted.connect(func(): game_state = GameState.playing)
-	
-#   Many balls chain spawn
-#   to make to work remove _respawn() in out area trigger
-#	ball.ball_pushed.connect(
-#		func(): 
-#			await get_tree().create_timer(.35).timeout
-#			_respawn(true)
-#
-#	)
-	
-	if not dropped and not first_pass:
-		game_state = GameState.finished
-		Score.reset()
-		
-	dropped = false
-	
+	body.queue_free()
+
 
 func _on_basket_enable_area_entered(body):
 	if body is BallBody:
@@ -47,7 +42,3 @@ func _on_basket_enable_area_entered(body):
 
 func _on_floor_area_exited(body: Node2D):
 	body.z_index = 8
-
-func _on_basket_on_ball_dropped(collisions):
-	Score.increment(collisions > 0)
-	dropped = true;

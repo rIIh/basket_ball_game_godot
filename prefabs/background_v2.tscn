@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqab0kxve52ov"]
+[gd_scene load_steps=12 format=3 uid="uid://cqab0kxve52ov"]
 
 [ext_resource type="Texture2D" uid="uid://q403tvrypend" path="res://assets/static/floor-pattern.png" id="1_7fq55"]
 [ext_resource type="Texture2D" uid="uid://ct6x7j3i8gnct" path="res://assets/static/background-arrow.png" id="1_78gyu"]
 [ext_resource type="Script" path="res://scripts/ui/fractional_offset.gd" id="1_duajg"]
 [ext_resource type="Script" path="res://scripts/gameplay/arrows_animation.gd" id="1_jties"]
+[ext_resource type="Script" path="res://scripts/background.gd" id="1_ymfj0"]
 
 [sub_resource type="GDScript" id="GDScript_gldrp"]
 script/source = "extends Control
@@ -35,6 +36,283 @@ func _process(delta):
 
 
 "
+
+[sub_resource type="Animation" id="Animation_fm4n3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arrows/Column/FractionalOffset:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arrows/Column/FractionalOffset2:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arrows/Column/FractionalOffset3:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arrows/Column/FractionalOffset4:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Arrows/Column/FractionalOffset5:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Arrows/Column/FractionalOffset6:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Arrows/Column/FractionalOffset7:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Arrows/Column/FractionalOffset8:translation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Arrows/Column/FractionalOffset9:translation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Arrows/Column/FractionalOffset10:translation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Arrows/Column/FractionalOffset11:translation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_br137"]
+resource_name = "loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arrows/Column/FractionalOffset:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arrows/Column/FractionalOffset2:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arrows/Column/FractionalOffset3:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arrows/Column/FractionalOffset4:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Arrows/Column/FractionalOffset5:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Arrows/Column/FractionalOffset6:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Arrows/Column/FractionalOffset7:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Arrows/Column/FractionalOffset8:translation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Arrows/Column/FractionalOffset9:translation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Arrows/Column/FractionalOffset10:translation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Arrows/Column/FractionalOffset11:translation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j3v3v"]
+_data = {
+"RESET": SubResource("Animation_fm4n3"),
+"loop": SubResource("Animation_br137")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhvi3"]
 bg_color = Color(0.960784, 0.764706, 0.278431, 1)
@@ -77,6 +355,7 @@ anchors_preset = 0
 offset_right = 1170.0
 offset_bottom = 2532.0
 mouse_filter = 2
+script = ExtResource("1_ymfj0")
 
 [node name="background3" type="ColorRect" parent="."]
 layout_mode = 1
@@ -89,7 +368,15 @@ mouse_filter = 2
 color = Color(0.286275, 0.631373, 0.894118, 1)
 script = SubResource("GDScript_gldrp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Arrows" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Column" type="VBoxContainer" parent="Arrows"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,7 +385,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jties")
 
-[node name="FractionalOffset" type="BoxContainer" parent="VBoxContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Arrows/Column"]
+root_node = NodePath("../../..")
+autoplay = "loop"
+libraries = {
+"": SubResource("AnimationLibrary_j3v3v")
+}
+
+[node name="FractionalOffset" type="BoxContainer" parent="Arrows/Column"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -106,17 +400,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset"]
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset2" type="BoxContainer" parent="VBoxContainer"]
+[node name="FractionalOffset2" type="BoxContainer" parent="Arrows/Column"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -124,17 +418,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset2"]
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset2"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset2/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset2/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset3" type="BoxContainer" parent="VBoxContainer"]
+[node name="FractionalOffset3" type="BoxContainer" parent="Arrows/Column"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -142,17 +436,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset3"]
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset3"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset3/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset3/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset4" type="BoxContainer" parent="VBoxContainer"]
+[node name="FractionalOffset4" type="BoxContainer" parent="Arrows/Column"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -160,17 +454,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset4"]
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset4"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset4/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset4/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset5" type="BoxContainer" parent="VBoxContainer"]
+[node name="FractionalOffset5" type="BoxContainer" parent="Arrows/Column"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -178,17 +472,17 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset5"]
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset5"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset5/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset5/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3
 
-[node name="FractionalOffset6" type="BoxContainer" parent="VBoxContainer"]
+[node name="FractionalOffset6" type="BoxContainer" parent="Arrows/Column"]
 layout_mode = 2
 alignment = 1
 vertical = true
@@ -196,12 +490,102 @@ script = ExtResource("1_duajg")
 translation = Vector2(2.08165e-12, 2.08165e-12)
 clip_content = false
 
-[node name="Margin" type="MarginContainer" parent="VBoxContainer/FractionalOffset6"]
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset6"]
 layout_mode = 2
 theme_override_constants/margin_top = -45
 theme_override_constants/margin_bottom = -45
 
-[node name="TextureRect1" type="TextureRect" parent="VBoxContainer/FractionalOffset6/Margin"]
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset6/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset7" type="BoxContainer" parent="Arrows/Column"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset7"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset7/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset8" type="BoxContainer" parent="Arrows/Column"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset8"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset8/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset9" type="BoxContainer" parent="Arrows/Column"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset9"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset9/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset10" type="BoxContainer" parent="Arrows/Column"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset10"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset10/Margin"]
+layout_mode = 2
+texture = ExtResource("1_78gyu")
+stretch_mode = 3
+
+[node name="FractionalOffset11" type="BoxContainer" parent="Arrows/Column"]
+layout_mode = 2
+alignment = 1
+vertical = true
+script = ExtResource("1_duajg")
+translation = Vector2(2.08165e-12, 2.08165e-12)
+clip_content = false
+
+[node name="Margin" type="MarginContainer" parent="Arrows/Column/FractionalOffset11"]
+layout_mode = 2
+theme_override_constants/margin_top = -45
+theme_override_constants/margin_bottom = -45
+
+[node name="TextureRect1" type="TextureRect" parent="Arrows/Column/FractionalOffset11/Margin"]
 layout_mode = 2
 texture = ExtResource("1_78gyu")
 stretch_mode = 3

@@ -13,6 +13,14 @@ class_name BallBody
 @export var end_size: float = .65;
 
 var flying_time: float = 0;
+var collisions: int = 0;
+var dropped: bool = false :
+	set(value):
+		if value != dropped and value:
+			dropped = value
+			ball_dropped.emit()
+
+		dropped = value
 
 @onready
 var initial_sprite_size = $ball_sprite.scale
@@ -35,6 +43,7 @@ var is_collisions_enabled = false :
 			
 
 signal ball_interacted
+signal ball_dropped
 signal ball_pushed
 
 func _ready():

@@ -3,6 +3,8 @@ extends Node2D
 
 class_name BallSpawner
 
+signal on_ball_spawned(ball: BallBody)
+
 @export
 var ball_body_template_path: NodePath
 
@@ -46,7 +48,10 @@ func spawn(alignment: float = 0) -> BallBody:
 	node.visible = true
 	node.position += ball_body_template.position
 	node.position.x += distance / 2 * alignment
-	get_parent().add_child(node)
+	
+	get_parent().call_deferred("add_child", node)
+	
+	on_ball_spawned.emit(node)
 	
 	return node
 	

@@ -1,9 +1,6 @@
 @tool
 extends Sprite2D
 
-
-signal on_ball_dropped(collisions: int);
-
 var collisions_records: Dictionary = {}
 
 func _ready():
@@ -27,10 +24,13 @@ func _on_counter_detector_body_entered(body: Node2D):
 	var id = body.get_instance_id();
 	var collisions = collisions_records[id] if collisions_records.has(id) else 0
 	
-	on_ball_dropped.emit(collisions)
-	Events.dispatch(BallDropped.new())
+	if body is BallBody:
+		body.dropped = true
 
 func _on_ring_sides_body_entered(body: Node2D):
+	if body is BallBody:
+		body.collisions = body.collisions + 1
+	
 	var id = body.get_instance_id();
 	if collisions_records.has(id):
 		collisions_records[id] += 1
