@@ -1,0 +1,3 @@
+extends GameModeDescendant
+
+class_name GameModeStrategy

@@ -1,7 +1,7 @@
 extends Node2D
 
 @export
-var game_mode: GameMode
+var game_mode: GameModeNext
 
 @onready
 var ball_spawner : BallSpawner = $BallSpawner
@@ -16,21 +16,27 @@ var game_state: int = GameState.initial :
 func _ready():
 	game_mode.ball_spawner = ball_spawner
 	game_mode.on_ball_spawned.connect(_handle_ball_spawned)
-	game_mode.on_complete.connect(_handle_complete)
+	game_mode.on_completed.connect(_handle_completed)
 	game_mode.start()
 
 
 func _handle_ball_spawned(ball: BallBody):
-	ball.ball_interacted.connect(func(): game_state = GameState.playing)
+	ball.ball_interacted.connect(_start_game_mode)
 	
-func _handle_complete():
+func _start_game_mode():
+	game_state = GameState.playing
+	game_mode.start()
+
+func _handle_completed():
 	game_state = GameState.finished
+	game_mode.stop()
 	Score.reset()
 	
 
+
 func _on_out_area_body_entered(body):
 	if body is BallBody and game_mode:
-		game_mode.handle_ball_destroyed(body)
+		game_mode._handle_ball_destroyed(body)
 
 	body.queue_free()
 

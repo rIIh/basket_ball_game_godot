@@ -134,6 +134,10 @@ func _on_ball_body_input_event(viewport, event: InputEvent, shape_idx):
 
 func handle_drag_end():
 	var distance = (drag_end_position - drag_start_position)
+	if distance.length() < 10:
+		push(Vector2.UP)
+		return
+	
 	var direction = distance.normalized()
 	var angle = rad_to_deg(direction.angle_to(Vector2.UP))
 	

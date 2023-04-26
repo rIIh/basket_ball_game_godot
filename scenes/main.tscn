@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://p7c5l4qc8ja"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
-[ext_resource type="PackedScene" uid="uid://bi1627xohky20" path="res://game_modes/game_mode.tscn" id="2_criab"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
+[ext_resource type="PackedScene" uid="uid://dya3x4os7ds7g" path="res://game_modes/base_game_mode.tscn" id="2_vhiaf"]
 [ext_resource type="PackedScene" uid="uid://bpphjnasqa8pq" path="res://prefabs/ball_body.tscn" id="3_64ghb"]
 [ext_resource type="PackedScene" uid="uid://cqab0kxve52ov" path="res://prefabs/background_v2.tscn" id="3_gh8tq"]
 [ext_resource type="Script" path="res://scripts/tools/ball_size_change_gizmo.gd" id="5_dsja0"]
@@ -77,17 +77,17 @@ size = Vector2(1170, 466)
 
 [node name="main" type="Node2D" node_paths=PackedStringArray("game_mode")]
 script = ExtResource("1_kc5ag")
-game_mode = NodePath("GameMode")
+game_mode = NodePath("base_game_mode")
 metadata/_edit_vertical_guides_ = [585.0]
 
-[node name="GameMode" parent="." node_paths=PackedStringArray("ball_spawner") instance=ExtResource("2_criab")]
+[node name="base_game_mode" parent="." node_paths=PackedStringArray("ball_spawner") instance=ExtResource("2_vhiaf")]
 ball_spawner = NodePath("../BallSpawner")
 
-[node name="TripleScoreStrategy" parent="GameMode" index="1" node_paths=PackedStringArray("background")]
-background = NodePath("../../Background")
+[node name="3x BG Effect" parent="base_game_mode/GameBranchCondition" index="2" node_paths=PackedStringArray("background")]
+background = NodePath("../../../Background")
 
-[node name="TripleScoreStrategy2" parent="GameMode" index="2" node_paths=PackedStringArray("background")]
-background = NodePath("../../Background")
+[node name="6x BG Effect" parent="base_game_mode/GameBranchCondition2" index="2" node_paths=PackedStringArray("background")]
+background = NodePath("../../../Background")
 
 [node name="Background" parent="." instance=ExtResource("3_gh8tq")]
 
@@ -192,4 +192,4 @@ offset_bottom = 200.0
 [connection signal="mouse_exited" from="BallSpawner/BallAnchor/ball_body_template" to="BallSpawner/BallAnchor/ball_body_template" method="_on_ball_body_mouse_exited"]
 [connection signal="body_exited" from="floor_area" to="." method="_on_floor_area_exited"]
 
-[editable path="GameMode"]
+[editable path="base_game_mode"]

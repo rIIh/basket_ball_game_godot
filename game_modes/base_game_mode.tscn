@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://dya3x4os7ds7g"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/effects/background_arrows_effect.gd" id="1_t6338"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/game_mode_next.gd" id="1_uft1s"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/strategies/score_strategy.gd" id="2_11km3"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/strategies/game_complete_strategy.gd" id="2_c83oq"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/conditions/ball_drop_combo_condition.gd" id="5_3onln"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/modifiers/score_modifier.gd" id="6_rfi0i"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/conditions/game_branch_condition.gd" id="7_5sjga"]
+[ext_resource type="Script" path="res://scripts/gameplay/game_mode/strategies/spawn_strategy.gd" id="7_u50ak"]
+
+[node name="base_game_mode" type="Node"]
+script = ExtResource("1_uft1s")
+
+[node name="GameCompleteStrategy" type="Node" parent="."]
+script = ExtResource("2_c83oq")
+
+[node name="SpawnStrategy" type="Node" parent="."]
+script = ExtResource("7_u50ak")
+
+[node name="ScoreStrategyNext" type="Node" parent="."]
+script = ExtResource("2_11km3")
+
+[node name="GameBranchCondition" type="Node" parent="."]
+script = ExtResource("7_5sjga")
+
+[node name="BallDropComboCondition" type="Node" parent="GameBranchCondition" node_paths=PackedStringArray("reset_on")]
+script = ExtResource("5_3onln")
+trigger_drop_type = 0
+trigger_count = 2
+reset_on = NodePath("../BallDropComboCondition2")
+
+[node name="BallDropComboCondition2" type="Node" parent="GameBranchCondition"]
+script = ExtResource("5_3onln")
+trigger_drop_type = 1
+trigger_count = 1
+condition_result = 1
+reset_on_self = true
+
+[node name="3x BG Effect" type="Node" parent="GameBranchCondition"]
+script = ExtResource("1_t6338")
+speed = 4.0
+
+[node name="3x Score Modifier" type="Node" parent="GameBranchCondition"]
+script = ExtResource("6_rfi0i")
+multiplicator = 3
+battle_result = 2
+
+[node name="GameBranchCondition2" type="Node" parent="."]
+script = ExtResource("7_5sjga")
+
+[node name="BallDropComboCondition" type="Node" parent="GameBranchCondition2" node_paths=PackedStringArray("reset_on")]
+script = ExtResource("5_3onln")
+trigger_drop_type = 0
+trigger_count = 6
+reset_on = NodePath("../BallDropComboCondition2")
+
+[node name="BallDropComboCondition2" type="Node" parent="GameBranchCondition2"]
+script = ExtResource("5_3onln")
+trigger_drop_type = 1
+trigger_count = 1
+condition_result = 1
+reset_on_self = true
+
+[node name="6x BG Effect" type="Node" parent="GameBranchCondition2"]
+script = ExtResource("1_t6338")
+speed = 6.0
+
+[node name="6x Score Modifier" type="Node" parent="GameBranchCondition2"]
+script = ExtResource("6_rfi0i")
+multiplicator = 6
+battle_result = 2
+
+[node name="GameBranchCondition3" type="Node" parent="."]
+script = ExtResource("7_5sjga")
+
+[node name="BallDropComboCondition" type="Node" parent="GameBranchCondition3" node_paths=PackedStringArray("reset_on")]
+script = ExtResource("5_3onln")
+trigger_drop_type = 0
+trigger_count = 9
+reset_on = NodePath("../BallDropComboCondition2")
+
+[node name="BallDropComboCondition2" type="Node" parent="GameBranchCondition3"]
+script = ExtResource("5_3onln")
+trigger_drop_type = 1
+trigger_count = 1
+condition_result = 1
+reset_on_self = true
+
+[node name="9x BG Effect" type="Node" parent="GameBranchCondition3"]
+script = ExtResource("1_t6338")
+speed = 9.0
+
+[node name="9x Score Modifier" type="Node" parent="GameBranchCondition3"]
+script = ExtResource("6_rfi0i")
+multiplicator = 9
+battle_result = 2
