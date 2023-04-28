@@ -1,0 +1,548 @@
+[gd_scene load_steps=16 format=3 uid="uid://dtm08rijqbpqw"]
+
+[ext_resource type="Shader" path="res://shaders/circle_mask.gdshader" id="1_w6350"]
+[ext_resource type="Texture2D" uid="uid://1325knfiuk7p" path="res://assets/objects/ball.png" id="1_wscpa"]
+
+[sub_resource type="GDScript" id="GDScript_lf85b"]
+script/source = "extends CanvasLayer
+
+@export
+var is_initially_entered := false
+
+@onready
+var enter_player = $Control/enter_player
+
+@onready
+var loading_player = $Control/loading_player
+
+signal completed
+signal on_loading_bottom
+signal on_loading_top
+
+var _is_entered := false
+var _is_exit_requested := false
+
+@onready
+var _backgrounds := [
+	$Control/Background3,
+	$Control/Background2,
+	$Control/Background
+]
+
+func _ready():
+	for bg in _backgrounds:
+		bg.set_mask_value(0 if is_initially_entered else 1)
+	
+	enter()
+
+func enter() -> void:
+	if _is_entered:
+		return
+		
+	$Control.mouse_filter = Control.MOUSE_FILTER_STOP		
+	
+	_is_entered = true
+	if not is_initially_entered:
+		await _enter_background()
+	
+	enter_player.play(\"enter\")
+	
+	is_initially_entered = false
+
+func exit():
+	if not _is_entered or _is_exit_requested:
+		return
+	
+	_is_exit_requested = true
+	
+	await on_loading_bottom
+	await on_loading_top
+	
+	loading_player.play(\"exit_v2\")
+	await loading_player.animation_finished
+	$Control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _emit_loading_bottom():
+	on_loading_bottom.emit()
+
+func _emit_loading_top():
+	on_loading_top.emit()
+
+func _ball_appeared():
+	print(\"start loading animation with enter scale %s\" % enter_player.speed_scale)
+	if enter_player.speed_scale < 0:
+		return
+
+	loading_player.play(\"loading\")
+
+func _exit_completed():
+	await _exit_background()
+	
+	completed.emit()
+	_is_entered = false
+	_is_exit_requested = false
+
+const delay = .075
+func _exit_background():
+	var index = 0
+	for bg in _backgrounds:
+		if index < len(_backgrounds) - 1:
+			bg.exit()
+			await get_tree().create_timer(delay).timeout
+		else:
+			await bg.exit()
+		
+		index += 1
+
+func _enter_background():
+	var index = 0
+	var backgrounds = _backgrounds.duplicate()
+	backgrounds.reverse()
+	
+	for bg in backgrounds:
+		if index < len(_backgrounds) - 1:
+			bg.enter()
+			await get_tree().create_timer(delay).timeout
+		else:
+			await bg.enter()
+		
+		index += 1
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nu5fg"]
+shader = ExtResource("1_w6350")
+shader_parameter/circle_size = 0.0
+shader_parameter/size_ratio = 2.1641
+shader_parameter/location_x = 0.5
+shader_parameter/location_y = 0.5
+shader_parameter/invert_mask = true
+shader_parameter/highlight_size = 0.0
+
+[sub_resource type="GDScript" id="GDScript_dim6j"]
+script/source = "@tool
+extends ColorRect
+
+func _ready():
+	if Engine.is_editor_hint():
+		return
+		
+var tween: Tween
+func enter():
+	if tween:
+		tween.kill()
+		
+	tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_method(_update_circle_size, 1.0, 0.0, .250)
+	
+	return tween.finished
+
+func exit():
+	if tween:
+		tween.kill()
+		
+	tween = create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	tween.tween_method(_update_circle_size, 0.0, 1.0, .250)
+
+	return tween.finished
+
+func set_mask_value(value: float):
+	_update_circle_size(value)
+
+func _update_circle_size(value: float):
+	material.set_shader_parameter(\"circle_size\", value)
+
+func _process(delta):
+	var _material: ShaderMaterial = self.material
+	var ratio = size.y / size.x
+	
+	_material.set_shader_parameter(\"size_ratio\", ratio)
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_03o8o"]
+shader = ExtResource("1_w6350")
+shader_parameter/circle_size = 0.0
+shader_parameter/size_ratio = 2.1641
+shader_parameter/location_x = 0.5
+shader_parameter/location_y = 0.5
+shader_parameter/invert_mask = true
+shader_parameter/highlight_size = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_naa8y"]
+shader = ExtResource("1_w6350")
+shader_parameter/circle_size = 0.0
+shader_parameter/size_ratio = 2.1641
+shader_parameter/location_x = 0.5
+shader_parameter/location_y = 0.5
+shader_parameter/invert_mask = true
+shader_parameter/highlight_size = 0.0
+
+[sub_resource type="Animation" id="Animation_lby2l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/TextureRect:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_f5hhq"]
+resource_name = "enter"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, -0.5, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/TextureRect:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 0.25),
+"update": 0,
+"values": [3.48787e-16, 0.251327, 0.0, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_ball_appeared"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_rtodj"]
+resource_name = "enter_v2"
+
+[sub_resource type="Animation" id="Animation_uipfi"]
+resource_name = "exit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.696441, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 306.5), Vector2(2.08165e-12, -2000)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0.195), Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1.71484, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_exit_completed"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_bj0oq"]
+resource_name = "loading"
+length = 0.25
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1.98669, -1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(0, 306.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1.98669, -1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(1, 0.195)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_emit_loading_top"
+}, {
+"args": [],
+"method": &"_emit_loading_bottom"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_44yhq"]
+resource_name = "exit_v2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_exit_completed"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_26vk6"]
+_data = {
+"RESET": SubResource("Animation_lby2l"),
+"enter": SubResource("Animation_f5hhq"),
+"enter_v2": SubResource("Animation_rtodj"),
+"exit": SubResource("Animation_uipfi"),
+"exit_v2": SubResource("Animation_44yhq"),
+"loading": SubResource("Animation_bj0oq")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujxl3"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+corner_radius_top_left = 300
+corner_radius_top_right = 300
+corner_radius_bottom_right = 300
+corner_radius_bottom_left = 300
+corner_detail = 20
+
+[node name="splash_screen" type="CanvasLayer"]
+script = SubResource("GDScript_lf85b")
+is_initially_entered = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_nu5fg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(582, 545)
+mouse_filter = 2
+color = Color(0.960784, 0.764706, 0.278431, 1)
+script = SubResource("GDScript_dim6j")
+
+[node name="Background2" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_03o8o")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(582, 545)
+mouse_filter = 2
+color = Color(0.964706, 0.337255, 0.25098, 1)
+script = SubResource("GDScript_dim6j")
+
+[node name="Background3" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_naa8y")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(582, 545)
+mouse_filter = 2
+color = Color(0.235294, 0.439216, 0.972549, 1)
+script = SubResource("GDScript_dim6j")
+
+[node name="enter_player" type="AnimationPlayer" parent="Control"]
+libraries = {
+"": SubResource("AnimationLibrary_26vk6")
+}
+
+[node name="loading_player" type="AnimationPlayer" parent="Control"]
+libraries = {
+"": SubResource("AnimationLibrary_26vk6")
+}
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -131.0
+offset_top = -884.0
+offset_right = 125.0
+offset_bottom = -628.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2.08165e-12, 2.08165e-12)
+pivot_offset = Vector2(128, 128)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ujxl3")
+
+[node name="Control" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -196.5
+offset_right = 196.5
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -196.5
+offset_right = 196.5
+offset_bottom = 196.521
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.08165e-12, 2.08165e-12)
+pivot_offset = Vector2(196, 196)
+mouse_filter = 2
+texture = ExtResource("1_wscpa")
+expand_mode = 1

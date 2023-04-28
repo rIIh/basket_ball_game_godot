@@ -18,6 +18,9 @@ func _ready():
 	game_mode.on_ball_spawned.connect(_handle_ball_spawned)
 	game_mode.on_complete.connect(_handle_complete)
 	game_mode.start()
+	
+	await get_tree().create_timer(1).timeout
+	$splash_screen.exit()
 
 
 func _handle_ball_spawned(ball: BallBody):

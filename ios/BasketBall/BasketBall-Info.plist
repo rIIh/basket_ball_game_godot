@@ -56,7 +56,8 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	
-	
+	<key>UILaunchStoryboardName</key>
+<string>Launch Screen</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key><true/>
 </dict>
 </plist>
