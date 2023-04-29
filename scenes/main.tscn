@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://p7c5l4qc8ja"]
+[gd_scene load_steps=23 format=3 uid="uid://p7c5l4qc8ja"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_kc5ag"]
 [ext_resource type="PackedScene" uid="uid://dn8ssl5rs6e0f" path="res://prefabs/basket.tscn" id="2_qt8m1"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://be5oumlc1n17h" path="res://scenes/menu.tscn" id="9_h2q4q"]
 [ext_resource type="PackedScene" uid="uid://bfmapa6spy2at" path="res://prefabs/fps_counter.tscn" id="10_n6t4f"]
 [ext_resource type="Script" path="res://scripts/gameplay/ball_spawner.gd" id="12_raect"]
+[ext_resource type="PackedScene" uid="uid://dtm08rijqbpqw" path="res://scenes/splash_screen.tscn" id="14_vqgti"]
 
 [sub_resource type="GDScript" id="GDScript_c8f6o"]
 script/source = "extends Area2D
@@ -181,6 +182,8 @@ offset_left = 19.0
 offset_top = 200.0
 offset_right = 19.0
 offset_bottom = 200.0
+
+[node name="splash_screen" parent="." instance=ExtResource("14_vqgti")]
 
 [connection signal="body_entered" from="out_area" to="." method="_on_out_area_body_entered"]
 [connection signal="body_entered" from="basket_area" to="." method="_on_basket_enable_area_entered"]
